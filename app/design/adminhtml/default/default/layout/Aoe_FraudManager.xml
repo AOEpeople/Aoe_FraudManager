@@ -38,5 +38,27 @@
                 <template>aoe_fraudmanager/sales/order/view/info.phtml</template>
             </action>
         </reference>
+        <reference name="sales_order_edit">
+            <action method="addButton" translate="data.label data.onclick" ifhelper="!Aoe_FraudManager/Data/isOrderFraud">
+                <id>set_fraud_flag</id>
+                <data>
+                    <label>Mark Fraud</label>
+                    <onclick>
+                        <text>setLocation('%s')</text>
+                        <url helper="Aoe_FraudManager/Data/getSetFraudFlagUrl"/>
+                    </onclick>
+                </data>
+            </action>
+            <action method="addButton" translate="data.label data.onclick" ifhelper="Aoe_FraudManager/Data/isOrderFraud">
+                <id>remove_fraud_flag</id>
+                <data>
+                    <label>Unmark Fraud</label>
+                    <onclick>
+                        <text>setLocation('%s')</text>
+                        <url helper="Aoe_FraudManager/Data/getRemoveFraudFlagUrl"/>
+                    </onclick>
+                </data>
+            </action>
+        </reference>
     </adminhtml_sales_order_view>
 </layout>
