@@ -1,0 +1,18 @@
+{
+    "name": "AOEPeople/Aoe_FraudManager",
+    "description": "Magento Fraud Managment",
+    "authors": [
+        {
+            "name": "Lee Saferite",
+            "email": "<first>.<last>@aoe.com"
+        }
+    ],
+    "type": "magento-module",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*",
+        "aoepeople/Aoe_Layout": "~2"
+    },
+    "require-dev": {
+        "ecomdev/ecomdev_phpunit": "*"
+    }
+}
