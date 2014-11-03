@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
+    <adminhtml_aoe_fraudmanager>
+        <reference name="head">
+            <action method="addCss">
+                <name>css/aoe_fraudmanager.css</name>
+            </action>
+        </reference>
+    </adminhtml_aoe_fraudmanager>
     <adminhtml_sales_order_grid_fraud>
+        <update handle="adminhtml_aoe_fraudmanager"/>
         <reference name="sales_order.grid">
             <action method="addColumnAfter" translate="column.header">
                 <id>is_fraud</id>
@@ -23,4 +31,12 @@
     <adminhtml_sales_order_grid>
         <update handle="adminhtml_sales_order_grid_fraud"/>
     </adminhtml_sales_order_grid>
+    <adminhtml_sales_order_view>
+        <update handle="adminhtml_aoe_fraudmanager"/>
+        <reference name="order_info">
+            <action method="setTemplate">
+                <template>aoe_fraudmanager/sales/order/view/info.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
 </layout>
