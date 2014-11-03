@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Aoe_FraudManager>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Core/>
+                <Mage_Adminhtml/>
+            </depends>
+        </Aoe_FraudManager>
+    </modules>
+</config>
