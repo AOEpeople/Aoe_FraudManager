@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <order>
+                                <children>
+                                    <actions>
+                                        <children>
+                                            <set_fraud_flag translate="title">
+                                                <title>Set Fraud Flag</title>
+                                            </set_fraud_flag>
+                                            <remove_fraud_flag translate="title">
+                                                <title>Remove Fraud Flag</title>
+                                            </remove_fraud_flag>
+                                        </children>
+                                    </actions>
+                                </children>
+                            </order>
+                        </children>
+                    </sales>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

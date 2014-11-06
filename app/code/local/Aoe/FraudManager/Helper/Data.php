@@ -22,7 +22,7 @@ class Aoe_FraudManager_Helper_Data extends Mage_Core_Helper_Abstract
         $order = $this->resolveOrder($order);
 
         if ($order instanceof Mage_Sales_Model_Order && $order->getId()) {
-            return $this->_getUrl('adminhtml/fraud/set', array('order' => $order->getId()));
+            return $this->getUrl('adminhtml/sales_order/setFraudFlag', array('order_id' => $order->getId()));
         }
 
         return false;
@@ -33,7 +33,7 @@ class Aoe_FraudManager_Helper_Data extends Mage_Core_Helper_Abstract
         $order = $this->resolveOrder($order);
 
         if ($order instanceof Mage_Sales_Model_Order && $order->getId()) {
-            return $this->_getUrl('adminhtml/fraud/remove', array('order' => $order->getId()));
+            return $this->getUrl('adminhtml/sales_order/removeFraudFlag', array('order_id' => $order->getId()));
         }
 
         return false;
