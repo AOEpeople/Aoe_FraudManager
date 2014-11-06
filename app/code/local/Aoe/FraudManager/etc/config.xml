@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Aoe_FraudManager>
-            <version>0.1.0</version>
+            <version>0.2.0</version>
         </Aoe_FraudManager>
     </modules>
     <global>
@@ -19,7 +19,19 @@
         <models>
             <Aoe_FraudManager>
                 <class>Aoe_FraudManager_Model</class>
+                <resourceModel>Aoe_FraudManager_Resource</resourceModel>
             </Aoe_FraudManager>
+            <Aoe_FraudManager_Resource>
+                <class>Aoe_FraudManager_Resource</class>
+                <entities>
+                    <BlacklistRule>
+                        <table>aoe_fraudmanager_blacklist_rule</table>
+                    </BlacklistRule>
+                    <HoldRule>
+                        <table>aoe_fraudmanager_hold_rule</table>
+                    </HoldRule>
+                </entities>
+            </Aoe_FraudManager_Resource>
         </models>
         <resources>
             <Aoe_FraudManager>
@@ -57,5 +69,35 @@
                 </Aoe_FraudManager>
             </updates>
         </layout>
+        <events>
+            <aoe_fraudmanager_rule_condition_combine_additional>
+                <observers>
+                    <Aoe_FraudManager>
+                        <class>Aoe_FraudManager/Observer</class>
+                        <method>addOrderConditions</method>
+                    </Aoe_FraudManager>
+                </observers>
+            </aoe_fraudmanager_rule_condition_combine_additional>
+        </events>
     </adminhtml>
+    <frontend>
+        <events>
+            <sales_model_service_quote_submit_before>
+                <observers>
+                    <Aoe_FraudManager>
+                        <class>Aoe_FraudManager/Observer</class>
+                        <method>checkQuoteSubmitBefore</method>
+                    </Aoe_FraudManager>
+                </observers>
+            </sales_model_service_quote_submit_before>
+            <sales_model_service_quote_submit_success>
+                <observers>
+                    <Aoe_FraudManager>
+                        <class>Aoe_FraudManager/Observer</class>
+                        <method>checkQuoteSubmitSuccess</method>
+                    </Aoe_FraudManager>
+                </observers>
+            </sales_model_service_quote_submit_success>
+        </events>
+    </frontend>
 </config>

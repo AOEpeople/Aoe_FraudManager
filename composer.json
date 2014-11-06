@@ -10,7 +10,7 @@
     "type": "magento-module",
     "require": {
         "magento-hackathon/magento-composer-installer": "*",
-        "aoepeople/Aoe_Layout": "~2"
+        "aoepeople/Aoe_Layout": ">=2.1.1"
     },
     "require-dev": {
         "ecomdev/ecomdev_phpunit": "*"

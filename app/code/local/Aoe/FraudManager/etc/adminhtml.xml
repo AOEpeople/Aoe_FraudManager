@@ -1,5 +1,27 @@
 <?xml version="1.0"?>
 <config>
+    <menu>
+        <sales>
+            <children>
+                <aoe_fraudmanager translate="title">
+                    <title>Manage Fraud Rules</title>
+                    <sort_order>12000</sort_order>
+                    <children>
+                        <blacklist_rule translate="title">
+                            <title>Blacklist Rules</title>
+                            <action>adminhtml/fraudManager_blacklistRule</action>
+                            <sort_order>100</sort_order>
+                        </blacklist_rule>
+                        <hold_rule translate="title">
+                            <title>Hold Rules</title>
+                            <action>adminhtml/fraudManager_holdRule</action>
+                            <sort_order>200</sort_order>
+                        </hold_rule>
+                    </children>
+                </aoe_fraudmanager>
+            </children>
+        </sales>
+    </menu>
     <acl>
         <resources>
             <admin>
@@ -20,6 +42,40 @@
                                     </actions>
                                 </children>
                             </order>
+                            <aoe_fraudmanager translate="title">
+                                <title>Manage Fraud Rules</title>
+                                <sort_order>12000</sort_order>
+                                <children>
+                                    <blacklist_rule translate="title">
+                                        <title>Blacklist Rules</title>
+                                        <sort_order>100</sort_order>
+                                        <children>
+                                            <view translate="title">
+                                                <title>View</title>
+                                                <sort_order>100</sort_order>
+                                            </view>
+                                            <edit translate="title">
+                                                <title>Edit</title>
+                                                <sort_order>200</sort_order>
+                                            </edit>
+                                        </children>
+                                    </blacklist_rule>
+                                    <hold_rule translate="title">
+                                        <title>Hold Rules</title>
+                                        <sort_order>200</sort_order>
+                                        <children>
+                                            <view translate="title">
+                                                <title>View</title>
+                                                <sort_order>100</sort_order>
+                                            </view>
+                                            <edit translate="title">
+                                                <title>Edit</title>
+                                                <sort_order>200</sort_order>
+                                            </edit>
+                                        </children>
+                                    </hold_rule>
+                                </children>
+                            </aoe_fraudmanager>
                         </children>
                     </sales>
                 </children>

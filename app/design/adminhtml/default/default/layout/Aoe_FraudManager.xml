@@ -7,6 +7,375 @@
             </action>
         </reference>
     </adminhtml_aoe_fraudmanager>
+
+    <adminhtml_fraudmanager_blacklistrule_index>
+        <update handle="adminhtml_aoe_fraudmanager"/>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Grid_Container" name="aoe.fraudmanager.blacklistrule">
+                <action method="setHeaderText" translate="text">
+                    <text>Blacklist Rules</text>
+                </action>
+                <block type="Aoe_Layout/Widget_Grid" name="aoe.fraudmanager.blacklistrule.grid" as="grid">
+                    <action method="setId">
+                        <id>aoe_fraudmanager_blacklistrule_grid</id>
+                    </action>
+                    <action method="setUseAjax">
+                        <flag>1</flag>
+                    </action>
+                    <action method="setCollection">
+                        <collection helper="Aoe_FraudManager/BlacklistRule/getGridCollection"/>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>id</id>
+                        <column>
+                            <index>id</index>
+                            <type>number</type>
+                            <header>ID</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>name</id>
+                        <column>
+                            <header>Name</header>
+                            <index>name</index>
+                            <type>text</type>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>stop_processing</id>
+                        <column>
+                            <index>stop_processing</index>
+                            <header>Stop Processing</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>is_active</id>
+                        <column>
+                            <index>is_active</index>
+                            <header>Active</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header" ifhelper="!Aoe_Layout/Data/getIsSingleStoreMode">
+                        <id>website_ids</id>
+                        <column>
+                            <index>website_ids</index>
+                            <header>Websites</header>
+                            <type>options</type>
+                            <sortable>0</sortable>
+                            <width>100px</width>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>core/website</model>
+                                <use_collection>1</use_collection>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>sort_order</id>
+                        <column>
+                            <index>sort_order</index>
+                            <type>number</type>
+                            <header>Sort Order</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="setRowUrlRoute">
+                        <route helper="Aoe_FraudManager/BlacklistRule/getEditRoute"/>
+                    </action>
+                    <action method="setRowUrlParams">
+                        <params>
+                            <id>{{id}}</id>
+                        </params>
+                    </action>
+                    <action method="setDefaultSort">
+                        <id>id</id>
+                    </action>
+                    <action method="setDefaultDir">
+                        <dir>desc</dir>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_fraudmanager_blacklistrule_index>
+    <adminhtml_fraudmanager_blacklistrule_index_AJAX>
+        <reference name="root" output=""/>
+        <reference name="aoe.fraudmanager.blacklistrule.grid" output="toHtml"/>
+    </adminhtml_fraudmanager_blacklistrule_index_AJAX>
+
+    <adminhtml_fraudmanager_blacklistrule_new>
+        <update handle="adminhtml_aoe_fraudmanager"/>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+            <action method="setCanLoadRulesJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Form_Container" name="aoe.fraudmanager.blacklistrule.edit">
+                <action method="setHeaderText" translate="text">
+                    <text>New Rule</text>
+                </action>
+                <block type="Aoe_Layout/Widget_Form" name="aoe.fraudmanager.blacklistrule.edit.form" as="form">
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/BlacklistRule/getForm"/>
+                    </action>
+                </block>
+            </block>
+        </reference>
+        <reference name="left">
+            <block type="Aoe_Layout/Widget_Tabs" name="aoe.fraudmanager.blacklistrule.edit.tabs">
+                <action method="setId">
+                    <id>aoe_fraudmanager_blacklistrule_edit_tabs</id>
+                </action>
+                <action method="setDestElementId">
+                    <id>edit_form</id>
+                </action>
+                <action method="setRule">
+                    <rule helper="Aoe_FraudManager/BlacklistRule/getCurrentRecord"/>
+                </action>
+                <block type="Aoe_Layout/Widget_Tab_Form" name="aoe.fraudmanager.blacklistrule.edit.tabs.main" as="main">
+                    <action method="setLabel" translate="label">
+                        <label>General Information</label>
+                    </action>
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/BlacklistRule/getMainForm"/>
+                    </action>
+                </block>
+                <action method="addTab">
+                    <name>main</name>
+                    <block>main</block>
+                </action>
+                <block type="Aoe_Layout/Widget_Tab_Form" name="aoe.fraudmanager.blacklistrule.edit.tabs.conditions" as="conditions">
+                    <action method="setLabel" translate="label">
+                        <label>Conditions</label>
+                    </action>
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/BlacklistRule/getConditionsForm"/>
+                    </action>
+                </block>
+                <action method="addTab">
+                    <name>conditions</name>
+                    <block>conditions</block>
+                </action>
+            </block>
+            <block type="adminhtml/template" template="promo/salesrulejs.phtml" name="promo_quote_edit_jsinit"/>
+        </reference>
+    </adminhtml_fraudmanager_blacklistrule_new>
+    <adminhtml_fraudmanager_blacklistrule_edit>
+        <update handle="adminhtml_fraudmanager_blacklistrule_new"/>
+        <reference name="aoe.fraudmanager.blacklistrule.edit">
+            <action method="setHeaderText" translate="text">
+                <text>Edit Rule</text>
+            </action>
+            <action method="addButton" translate="data.label data.onclick data.onclick.message">
+                <id>delete</id>
+                <data>
+                    <label>Delete</label>
+                    <onclick>
+                        <source>deleteConfirm('%s', '%s')</source>
+                        <message>Are you sure you want to do this?</message>
+                        <url helper="Aoe_FraudManager/BlacklistRule/getDeleteUrl">
+                            <rule helper="Aoe_FraudManager/BlacklistRule/getCurrentRecord"/>
+                        </url>
+                    </onclick>
+                    <class>delete</class>
+                </data>
+            </action>
+        </reference>
+    </adminhtml_fraudmanager_blacklistrule_edit>
+
+    <adminhtml_fraudmanager_holdrule_index>
+        <update handle="adminhtml_aoe_fraudmanager"/>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Grid_Container" name="aoe.fraudmanager.holdrule">
+                <action method="setHeaderText" translate="text">
+                    <text>Hold Rules</text>
+                </action>
+                <block type="Aoe_Layout/Widget_Grid" name="aoe.fraudmanager.holdrule.grid" as="grid">
+                    <action method="setId">
+                        <id>aoe_fraudmanager_holdrule_grid</id>
+                    </action>
+                    <action method="setUseAjax">
+                        <flag>1</flag>
+                    </action>
+                    <action method="setCollection">
+                        <collection helper="Aoe_FraudManager/HoldRule/getGridCollection"/>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>id</id>
+                        <column>
+                            <index>id</index>
+                            <type>number</type>
+                            <header>ID</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>name</id>
+                        <column>
+                            <header>Name</header>
+                            <index>name</index>
+                            <type>text</type>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>stop_processing</id>
+                        <column>
+                            <index>stop_processing</index>
+                            <header>Stop Processing</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>is_active</id>
+                        <column>
+                            <index>is_active</index>
+                            <header>Active</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>sort_order</id>
+                        <column>
+                            <index>sort_order</index>
+                            <type>number</type>
+                            <header>Sort Order</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="setRowUrlRoute">
+                        <route helper="Aoe_FraudManager/HoldRule/getEditRoute"/>
+                    </action>
+                    <action method="setRowUrlParams">
+                        <params>
+                            <id>{{id}}</id>
+                        </params>
+                    </action>
+                    <action method="setDefaultSort">
+                        <id>id</id>
+                    </action>
+                    <action method="setDefaultDir">
+                        <dir>desc</dir>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_fraudmanager_holdrule_index>
+    <adminhtml_fraudmanager_holdrule_index_AJAX>
+        <reference name="root" output=""/>
+        <reference name="aoe.fraudmanager.holdrule.grid" output="toHtml"/>
+    </adminhtml_fraudmanager_holdrule_index_AJAX>
+
+    <adminhtml_fraudmanager_holdrule_new>
+        <update handle="adminhtml_aoe_fraudmanager"/>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+            <action method="setCanLoadRulesJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Form_Container" name="aoe.fraudmanager.holdrule.edit">
+                <action method="setHeaderText" translate="text">
+                    <text>New Rule</text>
+                </action>
+                <block type="Aoe_Layout/Widget_Form" name="aoe.fraudmanager.holdrule.edit.form" as="form">
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/HoldRule/getForm"/>
+                    </action>
+                </block>
+            </block>
+        </reference>
+        <reference name="left">
+            <block type="Aoe_Layout/Widget_Tabs" name="aoe.fraudmanager.holdrule.edit.tabs">
+                <action method="setId">
+                    <id>aoe_fraudmanager_holdrule_edit_tabs</id>
+                </action>
+                <action method="setDestElementId">
+                    <id>edit_form</id>
+                </action>
+                <action method="setRule">
+                    <rule helper="Aoe_FraudManager/HoldRule/getCurrentRecord"/>
+                </action>
+                <block type="Aoe_Layout/Widget_Tab_Form" name="aoe.fraudmanager.holdrule.edit.tabs.main" as="main">
+                    <action method="setLabel" translate="label">
+                        <label>General Information</label>
+                    </action>
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/HoldRule/getMainForm"/>
+                    </action>
+                </block>
+                <action method="addTab">
+                    <name>main</name>
+                    <block>main</block>
+                </action>
+                <block type="Aoe_Layout/Widget_Tab_Form" name="aoe.fraudmanager.holdrule.edit.tabs.conditions" as="conditions">
+                    <action method="setLabel" translate="label">
+                        <label>Conditions</label>
+                    </action>
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/HoldRule/getConditionsForm"/>
+                    </action>
+                </block>
+                <action method="addTab">
+                    <name>conditions</name>
+                    <block>conditions</block>
+                </action>
+            </block>
+            <block type="adminhtml/template" template="promo/salesrulejs.phtml" name="promo_quote_edit_jsinit"/>
+        </reference>
+    </adminhtml_fraudmanager_holdrule_new>
+    <adminhtml_fraudmanager_holdrule_edit>
+        <update handle="adminhtml_fraudmanager_holdrule_new"/>
+        <reference name="aoe.fraudmanager.holdrule.edit">
+            <action method="setHeaderText" translate="text">
+                <text>Edit Rule</text>
+            </action>
+            <action method="addButton" translate="data.label data.onclick data.onclick.message">
+                <id>delete</id>
+                <data>
+                    <label>Delete</label>
+                    <onclick>
+                        <source>deleteConfirm('%s', '%s')</source>
+                        <message>Are you sure you want to do this?</message>
+                        <url helper="Aoe_FraudManager/HoldRule/getDeleteUrl">
+                            <rule helper="Aoe_FraudManager/HoldRule/getCurrentRecord"/>
+                        </url>
+                    </onclick>
+                    <class>delete</class>
+                </data>
+            </action>
+        </reference>
+    </adminhtml_fraudmanager_holdrule_edit>
+
+    <adminhtml_sales_order_index>
+        <update handle="adminhtml_sales_order_grid_fraud"/>
+    </adminhtml_sales_order_index>
+    <adminhtml_sales_order_grid>
+        <update handle="adminhtml_sales_order_grid_fraud"/>
+    </adminhtml_sales_order_grid>
     <adminhtml_sales_order_grid_fraud>
         <update handle="adminhtml_aoe_fraudmanager"/>
         <reference name="sales_order.grid">
@@ -25,12 +394,7 @@
             </action>
         </reference>
     </adminhtml_sales_order_grid_fraud>
-    <adminhtml_sales_order_index>
-        <update handle="adminhtml_sales_order_grid_fraud"/>
-    </adminhtml_sales_order_index>
-    <adminhtml_sales_order_grid>
-        <update handle="adminhtml_sales_order_grid_fraud"/>
-    </adminhtml_sales_order_grid>
+
     <adminhtml_sales_order_view>
         <update handle="adminhtml_aoe_fraudmanager"/>
         <reference name="order_info">

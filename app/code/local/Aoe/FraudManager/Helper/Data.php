@@ -67,11 +67,28 @@ class Aoe_FraudManager_Helper_Data extends Mage_Core_Helper_Abstract
         return false;
     }
 
+    /**
+     * @return Varien_Data_Form
+     */
+    public function getRuleForm()
+    {
+        $form = new Varien_Data_Form(
+            array(
+                'id'            => 'edit_form',
+                'method'        => 'post',
+            )
+        );
+
+        $form->setUseContainer(true);
+
+        return $form;
+    }
+
     protected function resolveOrder($order = null)
     {
-        if ($order instanceof Mage_Sales_Model_Order){
+        if ($order instanceof Mage_Sales_Model_Order) {
             return $order;
-        } elseif($order) {
+        } elseif ($order) {
             return Mage::getModel('sales/order')->load($order);
         } else {
             return Mage::registry('current_order');
@@ -82,7 +99,8 @@ class Aoe_FraudManager_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve url
      *
      * @param   string $route
-     * @param   array $params
+     * @param   array  $params
+     *
      * @return  string
      */
     protected function _getUrl($route, $params = array())
@@ -94,10 +112,11 @@ class Aoe_FraudManager_Helper_Data extends Mage_Core_Helper_Abstract
      * Generate url by route and parameters
      *
      * @param   string $route
-     * @param   array $params
+     * @param   array  $params
+     *
      * @return  string
      */
-    public function getUrl($route='', $params=array())
+    public function getUrl($route = '', $params = array())
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }
