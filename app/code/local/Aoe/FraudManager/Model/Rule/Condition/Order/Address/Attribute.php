@@ -3,12 +3,13 @@
 abstract class Aoe_FraudManager_Model_Rule_Condition_Order_Address_Attribute extends Aoe_FraudManager_Model_Rule_Condition_Attribute
 {
     protected $attributes = array(
-        'name'   => array('Name', array('==', '!=', '{}', '!{}', 'RE')),
-        'street' => array('Street', array('==', '!=', '{}', '!{}', 'RE')),
-        'city'   => array('City', array('==', '!=', '{}', '!{}', 'RE')),
-        'region' => array('Region', array('==', '!=', '{}', '!{}', 'RE')),
+        'name'       => array('Name', array('==', '!=', '{}', '!{}', 'RE')),
+        'street'     => array('Street', array('==', '!=', '{}', '!{}', 'RE')),
+        'city'       => array('City', array('==', '!=', '{}', '!{}', 'RE')),
+        'region'     => array('Region', array('==', '!=', '{}', '!{}', 'RE')),
+        'country_id' => array('Country', array('==', '!=', 'RE')),
         //'email'  => array('Email', array('==', '!=', '{}', '!{}', 'RE')),
-        'all'    => array('All', array('==', '!=', '{}', '!{}', 'RE')),
+        'all'        => array('All', array('==', '!=', '{}', '!{}', 'RE')),
     );
 
     protected function getAttributeValue(Varien_Object $object)
