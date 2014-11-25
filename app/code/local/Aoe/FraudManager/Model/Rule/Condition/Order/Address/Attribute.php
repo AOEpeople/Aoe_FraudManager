@@ -8,7 +8,6 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Order_Address_Attribute ext
         'city'       => array('City', array('==', '!=', '{}', '!{}', 'RE')),
         'region'     => array('Region', array('==', '!=', '{}', '!{}', 'RE')),
         'country_id' => array('Country', array('==', '!=', 'RE')),
-        //'email'  => array('Email', array('==', '!=', '{}', '!{}', 'RE')),
         'all'        => array('All', array('==', '!=', '{}', '!{}', 'RE')),
     );
 
