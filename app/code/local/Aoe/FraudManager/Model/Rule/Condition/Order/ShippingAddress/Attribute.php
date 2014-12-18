@@ -4,6 +4,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_ShippingAddress_Attribute exte
 {
     protected function _construct()
     {
+        parent::_construct();
         $this->setType('Aoe_FraudManager/Rule_Condition_Order_ShippingAddress_Attribute');
         $this->setName('Shipping Address');
     }

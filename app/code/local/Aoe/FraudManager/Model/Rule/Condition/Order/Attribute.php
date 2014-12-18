@@ -18,6 +18,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Attribute extends Aoe_FraudMan
      */
     protected function _construct()
     {
+        parent::_construct();
         $this->setType('Aoe_FraudManager/Rule_Condition_Order_Attribute');
         $this->setName('Order');
     }

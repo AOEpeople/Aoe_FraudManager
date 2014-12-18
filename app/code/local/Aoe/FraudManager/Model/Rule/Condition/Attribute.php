@@ -15,6 +15,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
      */
     protected function _construct()
     {
+        parent::_construct();
         $this->arrayKeys[] = 'attribute';
         $this->arrayKeys[] = 'operator';
         $this->arrayKeys[] = 'value';
