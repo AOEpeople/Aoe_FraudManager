@@ -67,23 +67,6 @@ class Aoe_FraudManager_Helper_Data extends Aoe_Layout_Helper_Data
         return false;
     }
 
-    /**
-     * @return Varien_Data_Form
-     */
-    public function getRuleForm()
-    {
-        $form = new Varien_Data_Form(
-            array(
-                'id'            => 'edit_form',
-                'method'        => 'post',
-            )
-        );
-
-        $form->setUseContainer(true);
-
-        return $form;
-    }
-
     protected function resolveOrder($order = null)
     {
         if ($order instanceof Mage_Sales_Model_Order) {
