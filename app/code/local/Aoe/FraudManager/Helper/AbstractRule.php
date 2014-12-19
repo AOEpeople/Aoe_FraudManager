@@ -206,30 +206,4 @@ abstract class Aoe_FraudManager_Helper_AbstractRule extends Aoe_Layout_Helper_Ab
 
         return $result;
     }
-
-    /**
-     * Retrieve url
-     *
-     * @param   string $route
-     * @param   array  $params
-     *
-     * @return  string
-     */
-    protected function _getUrl($route, $params = array())
-    {
-        return $this->getUrl($route, $params);
-    }
-
-    /**
-     * Generate url by route and parameters
-     *
-     * @param   string $route
-     * @param   array  $params
-     *
-     * @return  string
-     */
-    public function getUrl($route = '', $params = array())
-    {
-        return Mage::helper('adminhtml')->getUrl($route, $params);
-    }
 }

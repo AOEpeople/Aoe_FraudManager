@@ -4,7 +4,7 @@
  * @author Lee Saferite <lee.saferite@aoe.com>
  * @since  2014-11-03
  */
-class Aoe_FraudManager_Helper_Data extends Mage_Core_Helper_Abstract
+class Aoe_FraudManager_Helper_Data extends Aoe_Layout_Helper_Data
 {
     public function isOrderFraud($order = null)
     {
@@ -105,19 +105,6 @@ class Aoe_FraudManager_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _getUrl($route, $params = array())
     {
-        return $this->getUrl($route, $params);
-    }
-
-    /**
-     * Generate url by route and parameters
-     *
-     * @param   string $route
-     * @param   array  $params
-     *
-     * @return  string
-     */
-    public function getUrl($route = '', $params = array())
-    {
-        return Mage::helper('adminhtml')->getUrl($route, $params);
+        return Mage::helper('adminhtml/data')->getUrl($route, $params);
     }
 }
