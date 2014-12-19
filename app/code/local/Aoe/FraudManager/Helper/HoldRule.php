@@ -6,6 +6,11 @@
  */
 class Aoe_FraudManager_Helper_HoldRule extends Aoe_FraudManager_Helper_AbstractRule
 {
+    public function isActive()
+    {
+        return Mage::getStoreConfigFlag('aoe_fraudmanager/hold_rules/active');
+    }
+
     /**
      * Get the frontname and controller portion of the route
      *

@@ -53,7 +53,11 @@ class Aoe_FraudManager_Model_Observer
 
     public function checkQuoteSubmitBefore(Varien_Event_Observer $observer)
     {
-        $helper = Mage::helper('Aoe_FraudManager/Data');
+        /** @var Aoe_FraudManager_Helper_BlacklistRule $helper */
+        $helper = Mage::helper('Aoe_FraudManager/BlacklistRule');
+        if (!$helper->isActive()) {
+            return;
+        }
 
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getOrder();
@@ -92,6 +96,12 @@ class Aoe_FraudManager_Model_Observer
 
     public function checkQuoteSubmitSuccess(Varien_Event_Observer $observer)
     {
+        /** @var Aoe_FraudManager_Helper_HoldRule $helper */
+        $helper = Mage::helper('Aoe_FraudManager/HoldRule');
+        if (!$helper->isActive()) {
+            return;
+        }
+
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getOrder();
         if (!$order instanceof Mage_Sales_Model_Order) {
