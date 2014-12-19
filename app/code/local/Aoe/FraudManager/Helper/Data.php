@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-03
- */
 class Aoe_FraudManager_Helper_Data extends Aoe_Layout_Helper_Data
 {
     /**

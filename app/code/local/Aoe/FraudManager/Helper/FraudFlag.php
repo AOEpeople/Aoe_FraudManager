@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-12-19
- */
 class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
 {
     public function isActive()

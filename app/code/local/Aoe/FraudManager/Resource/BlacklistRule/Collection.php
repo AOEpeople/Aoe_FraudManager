@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 class Aoe_FraudManager_Resource_BlacklistRule_Collection extends Aoe_FraudManager_Resource_Collection_Abstract
 {
     public function _construct()

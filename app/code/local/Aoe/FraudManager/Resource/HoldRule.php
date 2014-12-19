@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 class Aoe_FraudManager_Resource_HoldRule extends Aoe_FraudManager_Resource_Abstract
 {
     protected $_serializableFields = array(
@@ -14,7 +10,7 @@ class Aoe_FraudManager_Resource_HoldRule extends Aoe_FraudManager_Resource_Abstr
             array('Zend_Json', 'encode'),
             array('Zend_Json', 'decode'),
         ),
-        'conditions' => array(
+        'conditions'  => array(
             '[]',
             array(),
             false,

@@ -1,8 +1,5 @@
 <?php
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
+
 class Aoe_FraudManager_Resource_BlacklistRule extends Aoe_FraudManager_Resource_Abstract
 {
     protected $_serializableFields = array(
@@ -13,7 +10,7 @@ class Aoe_FraudManager_Resource_BlacklistRule extends Aoe_FraudManager_Resource_
             array('Aoe_FraudManager_Resource_BlacklistRule', 'implodeArray'),
             array('Aoe_FraudManager_Resource_BlacklistRule', 'explodeArray'),
         ),
-        'conditions' => array(
+        'conditions'  => array(
             '[]',
             array(),
             false,

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-11
- */
 class Aoe_FraudManager_Model_Observer
 {
     public function addOrderConditions(Varien_Event_Observer $observer)

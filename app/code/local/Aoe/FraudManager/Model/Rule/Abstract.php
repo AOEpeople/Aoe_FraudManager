@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 abstract class Aoe_FraudManager_Model_Rule_Abstract extends Mage_Core_Model_Abstract
 {
     /**
@@ -31,7 +27,7 @@ abstract class Aoe_FraudManager_Model_Rule_Abstract extends Mage_Core_Model_Abst
         if (!$conditions instanceof Aoe_FraudManager_Model_Rule_Condition_Root) {
             if (is_array($conditions) && isset($conditions['type'])) {
                 $root = Mage::getModel($conditions['type']);
-                if(!$root instanceof Aoe_FraudManager_Model_Rule_Condition_Root) {
+                if (!$root instanceof Aoe_FraudManager_Model_Rule_Condition_Root) {
                     Mage::throwException('Invalid parameter');
                 }
                 $root->setRule($this);

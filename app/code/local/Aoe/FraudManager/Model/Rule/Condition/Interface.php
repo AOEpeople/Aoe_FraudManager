@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 interface Aoe_FraudManager_Model_Rule_Condition_Interface
 {
     /**

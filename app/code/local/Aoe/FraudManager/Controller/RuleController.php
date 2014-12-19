@@ -1,14 +1,10 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Controller_ModelManager
 {
     public function conditionAction()
     {
-        if(!$this->getRequest()->isAjax()) {
+        if (!$this->getRequest()->isAjax()) {
             $this->_forward('noroute');
             return;
         }
@@ -28,10 +24,10 @@ abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Con
 
         $condition->setId($id);
         $condition->setRule($rule);
-        if(is_callable(array($condition, 'setJsFormObject'))) {
+        if (is_callable(array($condition, 'setJsFormObject'))) {
             $condition->setJsFormObject($this->getRequest()->getParam('form'));
         }
-        if(isset($type[1]) && is_callable(array($condition, 'setAttribute'))) {
+        if (isset($type[1]) && is_callable(array($condition, 'setAttribute'))) {
             $condition->setAttribute($type[1]);
         }
 
@@ -52,7 +48,7 @@ abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Con
         if (isset($postData['rule']) && is_array($postData['rule'])) {
             $rule = $this->getHelper()->convertFlatToRecursive($postData['rule'], array('conditions'));
             unset($postData['rule']);
-            if(isset($rule['conditions'])) {
+            if (isset($rule['conditions'])) {
                 $postData['conditions'] = reset($rule['conditions']);
             }
         }

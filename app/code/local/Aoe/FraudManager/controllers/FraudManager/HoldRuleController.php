@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 class Aoe_FraudManager_FraudManager_HoldRuleController extends Aoe_FraudManager_Controller_RuleController
 {
     /**

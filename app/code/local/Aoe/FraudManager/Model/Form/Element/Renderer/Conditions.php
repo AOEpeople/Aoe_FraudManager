@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-10
- */
 class Aoe_FraudManager_Model_Form_Element_Renderer_Conditions implements Varien_Data_Form_Element_Renderer_Interface
 {
     public function render(Varien_Data_Form_Element_Abstract $element)

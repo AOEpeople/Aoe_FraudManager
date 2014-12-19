@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     /**
@@ -28,7 +24,7 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
         Mage::dispatchEvent('core_collection_abstract_load_after', array('collection' => $this));
 
         if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix.'_load_after', array($this->_eventObject => $this));
+            Mage::dispatchEvent($this->_eventPrefix . '_load_after', array($this->_eventObject => $this));
         }
 
         return $this;
@@ -205,7 +201,7 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
     {
         if ($valueField === null) {
             $valueField = $this->getResource()->getIdFieldName();
-            if($valueField === null) {
+            if ($valueField === null) {
                 $valueField = 'id';
             }
         }
@@ -220,7 +216,7 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
     {
         if ($valueField === null) {
             $valueField = $this->getResource()->getIdFieldName();
-            if($valueField === null) {
+            if ($valueField === null) {
                 $valueField = 'id';
             }
         }

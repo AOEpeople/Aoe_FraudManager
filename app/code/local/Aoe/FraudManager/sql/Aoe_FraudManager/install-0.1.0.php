@@ -1,10 +1,4 @@
 <?php
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-03
- *
- */
-
 $setupConfig = Mage::getConfig()->getNode('global/resources/sales_setup/setup');
 $setupClass = $setupConfig->getClassName();
 $setupClass = ($setupClass ? $setupClass : 'Mage_Sales_Model_Resource_Setup');

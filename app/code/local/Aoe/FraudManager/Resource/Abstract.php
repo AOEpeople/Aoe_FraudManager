@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 abstract class Aoe_FraudManager_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
@@ -61,7 +57,7 @@ abstract class Aoe_FraudManager_Resource_Abstract extends Mage_Core_Model_Resour
 
     public static function implodeArray($value)
     {
-        if(is_array($value)) {
+        if (is_array($value)) {
             $value = implode(",", $value);
         } else {
             $value = (string)$value;
@@ -71,7 +67,7 @@ abstract class Aoe_FraudManager_Resource_Abstract extends Mage_Core_Model_Resour
 
     public static function explodeArray($value)
     {
-        if(is_string($value)) {
+        if (is_string($value)) {
             $value = array_filter(array_map('trim', explode(",", $value)));
         } else {
             $value = array();

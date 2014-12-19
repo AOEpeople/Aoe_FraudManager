@@ -103,7 +103,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
         $conditions = $this->getConditions();
         if (!$condition->getId()) {
             $id = uniqid($this->getId() . '--');
-            while(isset($conditions[$id])) {
+            while (isset($conditions[$id])) {
                 $id = uniqid($this->getId() . '--');
             }
             $condition->setId($id);
@@ -330,9 +330,9 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
                     if ($condition) {
                         $this->addCondition($condition);
                         $condition->loadArray($conditionData);
-                        if($condition instanceof Aoe_FraudManager_Model_Rule_Condition_Combine) {
+                        if ($condition instanceof Aoe_FraudManager_Model_Rule_Condition_Combine) {
                             $conditions = $condition->getConditions();
-                            if(empty($conditions)) {
+                            if (empty($conditions)) {
                                 $this->removeCondition($condition);
                             }
                         }

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-06
- */
 abstract class Aoe_FraudManager_Helper_AbstractRule extends Aoe_Layout_Helper_AbstractModelManager
 {
     public function getGridCollection()

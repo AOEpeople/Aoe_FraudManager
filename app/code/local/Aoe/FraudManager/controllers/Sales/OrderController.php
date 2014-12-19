@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @see    Mage_Adminhtml_Sales_OrderController
+ * @see Mage_Adminhtml_Sales_OrderController
  */
 class Aoe_FraudManager_Sales_OrderController extends Mage_Adminhtml_Controller_Action
 {
