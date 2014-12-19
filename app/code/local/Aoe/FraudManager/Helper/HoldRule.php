@@ -24,7 +24,7 @@ class Aoe_FraudManager_Helper_HoldRule extends Aoe_FraudManager_Helper_AbstractR
      */
     public function getAclPermission($action)
     {
-        return $this->getAdminSession()->isAllowed('sales/aoe_fraudmanager/hold_rule/' . trim($action, ' /'));
+        return $this->getAdminSession()->isAllowed('system/aoe_fraudmanager/hold_rule/' . trim($action, ' /'));
     }
 
     /**

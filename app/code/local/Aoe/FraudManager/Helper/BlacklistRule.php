@@ -24,7 +24,7 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
      */
     public function getAclPermission($action)
     {
-        return $this->getAdminSession()->isAllowed('sales/aoe_fraudmanager/blacklist_rule/' . trim($action, ' /'));
+        return $this->getAdminSession()->isAllowed('system/aoe_fraudmanager/blacklist_rule/' . trim($action, ' /'));
     }
 
     /**
