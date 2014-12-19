@@ -1,33 +1,66 @@
 <?php
 
 /**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-11-03
- *
  * @see    Mage_Adminhtml_Sales_OrderController
  */
 class Aoe_FraudManager_Sales_OrderController extends Mage_Adminhtml_Controller_Action
 {
     public function setFraudFlagAction()
     {
+        $helper = $this->getHelper();
         $order = $this->initOrder();
-
-        if (Mage::helper('Aoe_FraudManager/Data')->setFraudFlag($order)) {
-            $this->_getSession()->addSuccess($this->__('Marked order as fraud'));
+        if (!$helper->isSetFlagActionAllowed($order)) {
+            $this->_forward('noroute');
+            return;
         }
-
-        $this->_redirect('adminhtml/sales_order/view', array('order_id' => $order->getId()));
+        try {
+            if ($this->getRequest()->isPost() || !$helper->isSetFlagCommentRequired()) {
+                $comment = trim($this->getRequest()->getPost('comment'));
+                if ($helper->setFlag($order, $comment)) {
+                    $this->_getSession()->addSuccess($this->__('Marked order as fraud'));
+                }
+                $this->redirectToOrderView($order);
+            } else {
+                $this->loadLayout();
+                $this->_setActiveMenu('sales/order');
+                $this->_addBreadcrumb($this->__('Sales'), $this->__('Sales'));
+                $this->_addBreadcrumb($this->__('Orders'), $this->__('Orders'));
+                $this->renderLayout();
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_getSession()->addError($e->getMessage());
+            $this->redirectToOrderView($order);
+        }
     }
 
     public function removeFraudFlagAction()
     {
+        $helper = $this->getHelper();
         $order = $this->initOrder();
-
-        if (Mage::helper('Aoe_FraudManager/Data')->removeFraudFlag($order)) {
-            $this->_getSession()->addSuccess($this->__('Marked order as NOT fraud'));
+        if (!$helper->isRemoveFlagActionAllowed($order)) {
+            $this->_forward('noroute');
+            return;
         }
-
-        $this->_redirect('adminhtml/sales_order/view', array('order_id' => $order->getId()));
+        try {
+            if ($this->getRequest()->isPost() || !$helper->isRemoveFlagCommentRequired()) {
+                $comment = trim($this->getRequest()->getPost('comment'));
+                if ($helper->removeFlag($order, $comment)) {
+                    $this->_getSession()->addSuccess($this->__('Marked order as NOT fraud'));
+                }
+                $this->redirectToOrderView($order);
+            } else {
+                $this->loadLayout();
+                $this->_setActiveMenu('sales/order');
+                $this->_addBreadcrumb($this->__('Sales'), $this->__('Sales'));
+                $this->_addBreadcrumb($this->__('Orders'), $this->__('Orders'));
+                $this->renderLayout();
+            }
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->_getSession()->addError($e->getMessage());
+            $this->redirectToOrderView($order);
+        }
     }
 
     /**
@@ -41,37 +74,61 @@ class Aoe_FraudManager_Sales_OrderController extends Mage_Adminhtml_Controller_A
 
         /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order')->load($id);
-        if (!$order->getId()) {
+        if ($order->isObjectNew()) {
             $e = new Mage_Core_Controller_Varien_Exception();
             throw $e->prepareForward('noroute');
         }
 
-        Mage::register('sales_order', $order);
-        Mage::register('current_order', $order);
+        $this->getHelper()->setCurrentOrder($order);
 
         return $order;
     }
 
+    /**
+     * Issue a redirect to the order view page
+     *
+     * @param Mage_Sales_Model_Order $order
+     *
+     * @return $this
+     */
+    protected function redirectToOrderView(Mage_Sales_Model_Order $order)
+    {
+        return $this->_redirect('adminhtml/sales_order/view', array('order_id' => $order->getId()));
+    }
 
     /**
-     * Acl check for admin
+     * @return Aoe_FraudManager_Helper_FraudFlag
+     */
+    protected function getHelper()
+    {
+        return Mage::helper('Aoe_FraudManager/FraudFlag');
+    }
+
+    /**
+     * ACL check
      *
      * @return bool
      */
     protected function _isAllowed()
     {
-        $action = strtolower($this->getRequest()->getActionName());
+        $helper = $this->getHelper();
+
+        if (!$helper->isActive()) {
+            return false;
+        }
+
+        $action = lcfirst($this->getRequest()->getActionName());
         switch ($action) {
-            case 'setfraudflag':
+            case 'setFraudFlag':
                 $aclResource = 'sales/order/actions/set_fraud_flag';
                 break;
-            case 'removefraudflag':
+            case 'removeFraudFlag':
                 $aclResource = 'sales/order/actions/remove_fraud_flag';
                 break;
             default:
                 return false;
         }
 
-        return Mage::getSingleton('admin/session')->isAllowed($aclResource);
+        return $helper->getAdminSession()->isAllowed($aclResource);
     }
 }

@@ -78,6 +78,18 @@
                             </aoe_fraudmanager>
                         </children>
                     </sales>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <aoe_fraudmanager translate="title">
+                                        <title>AOE Fraud Manager</title>
+                                        <sort_order>9999</sort_order>
+                                    </aoe_fraudmanager>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
                 </children>
             </admin>
         </resources>

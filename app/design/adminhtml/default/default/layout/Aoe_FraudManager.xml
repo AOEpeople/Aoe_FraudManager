@@ -377,8 +377,8 @@
         <update handle="adminhtml_sales_order_grid_fraud"/>
     </adminhtml_sales_order_grid>
     <adminhtml_sales_order_grid_fraud>
-        <update handle="adminhtml_aoe_fraudmanager"/>
-        <reference name="sales_order.grid">
+        <update handle="adminhtml_aoe_fraudmanager" ifhelper="Aoe_FraudManager/FraudFlag/isActive"/>
+        <reference name="sales_order.grid" ifhelper="Aoe_FraudManager/FraudFlag/isActive">
             <action method="addColumnAfter" translate="column.header">
                 <id>is_fraud</id>
                 <column>
@@ -397,32 +397,81 @@
 
     <adminhtml_sales_order_view>
         <update handle="adminhtml_aoe_fraudmanager"/>
-        <reference name="order_info">
+        <reference name="order_info" ifhelper="Aoe_FraudManager/FraudFlag/isActive">
             <action method="setTemplate">
                 <template>aoe_fraudmanager/sales/order/view/info.phtml</template>
             </action>
         </reference>
-        <reference name="sales_order_edit">
-            <action method="addButton" translate="data.label data.onclick" ifhelper="!Aoe_FraudManager/Data/isOrderFraud">
+        <reference name="sales_order_edit" ifhelper="Aoe_FraudManager/FraudFlag/isActive">
+            <action method="addButton" translate="data.label data.onclick" ifhelper="Aoe_FraudManager/FraudFlag/isSetFlagActionAllowed">
                 <id>set_fraud_flag</id>
                 <data>
                     <label>Mark Fraud</label>
                     <onclick>
                         <text>setLocation('%s')</text>
-                        <url helper="Aoe_FraudManager/Data/getSetFraudFlagUrl"/>
+                        <url helper="Aoe_FraudManager/FraudFlag/getSetFlagUrl"/>
                     </onclick>
                 </data>
             </action>
-            <action method="addButton" translate="data.label data.onclick" ifhelper="Aoe_FraudManager/Data/isOrderFraud">
+            <action method="addButton" translate="data.label data.onclick" ifhelper="Aoe_FraudManager/FraudFlag/isRemoveFlagActionAllowed">
                 <id>remove_fraud_flag</id>
                 <data>
                     <label>Unmark Fraud</label>
                     <onclick>
                         <text>setLocation('%s')</text>
-                        <url helper="Aoe_FraudManager/Data/getRemoveFraudFlagUrl"/>
+                        <url helper="Aoe_FraudManager/FraudFlag/getRemoveFlagUrl"/>
                     </onclick>
                 </data>
             </action>
         </reference>
     </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_setfraudflag>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Form_Container" name="sales_order.set_fraud">
+                <action method="setHeaderText" translate="text">
+                    <text>
+                        <source>Mark Order #%s as Fraud</source>
+                        <orderId helper="Aoe_FraudManager/FraudFlag/getObjectData">
+                            <order helper="Aoe_FraudManager/FraudFlag/getCurrentOrder"/>
+                            <key>increment_id</key>
+                        </orderId>
+                    </text>
+                </action>
+                <block type="Aoe_Layout/Widget_Form" name="sales_order.set_fraud.form" as="form">
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/FraudFlag/getCommentForm"/>
+                    </action>
+                    <action method="setFormData">
+                        <key>action</key>
+                        <value helper="Aoe_FraudManager/FraudFlag/getSetFlagUrl"/>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_setfraudflag>
+    <adminhtml_sales_order_removefraudflag>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Form_Container" name="sales_order.remove_fraud">
+                <action method="setHeaderText" translate="text">
+                    <text>
+                        <source>Mark Order #%s as NOT Fraud</source>
+                        <orderId helper="Aoe_FraudManager/FraudFlag/getObjectData">
+                            <order helper="Aoe_FraudManager/FraudFlag/getCurrentOrder"/>
+                            <key>increment_id</key>
+                        </orderId>
+                    </text>
+                </action>
+                <block type="Aoe_Layout/Widget_Form" name="sales_order.remove_fraud.form" as="form">
+                    <action method="setForm">
+                        <form helper="Aoe_FraudManager/FraudFlag/getCommentForm"/>
+                    </action>
+                    <action method="setFormData">
+                        <key>action</key>
+                        <value helper="Aoe_FraudManager/FraudFlag/getRemoveFlagUrl"/>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_sales_order_removefraudflag>
 </layout>
