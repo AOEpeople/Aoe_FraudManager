@@ -8,6 +8,7 @@ class Aoe_FraudManager_Model_Observer
 {
     public function addOrderConditions(Varien_Event_Observer $observer)
     {
+        /** @var Aoe_FraudManager_Helper_Data $helper */
         $helper = Mage::helper('Aoe_FraudManager/Data');
 
         /** @var Aoe_FraudManager_Model_Rule_Condition_Interface $parent */
