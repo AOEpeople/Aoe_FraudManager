@@ -3,6 +3,6 @@ app/code/local/Aoe/FraudManager
 app/design/adminhtml/default/default/layout/Aoe_FraudManager.xml
 app/design/adminhtml/default/default/template/aoe_fraudmanager
 skin/adminhtml/default/default/css/aoe_fraudmanager.css
-skin/adminhtml/default/default/js/aoe_fraudmanager
-skin/adminhtml/default/default/images/aoe_fraudmanager
+#skin/adminhtml/default/default/js/aoe_fraudmanager
+#skin/adminhtml/default/default/images/aoe_fraudmanager
 app/locale/en_US/Aoe_FraudManager.csv
