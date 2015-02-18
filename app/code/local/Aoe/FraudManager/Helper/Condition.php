@@ -130,7 +130,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
                     }
                 }
                 break;
-            case 'REGEX':
+            case 'RE':
                 $result = preg_match($expectedValue, $actualValue);
                 if ($result === false) {
                     Mage::throwException('Error running regex pattern (' . preg_last_error() . ').');
