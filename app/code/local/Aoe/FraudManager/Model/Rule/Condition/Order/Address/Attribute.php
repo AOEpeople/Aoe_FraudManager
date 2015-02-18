@@ -3,14 +3,14 @@
 abstract class Aoe_FraudManager_Model_Rule_Condition_Order_Address_Attribute extends Aoe_FraudManager_Model_Rule_Condition_Attribute
 {
     protected $attributes = array(
-        'name'       => array('Full Name', array('==', '!=', '{}', '!{}', 'RE')),
-        'firstname'  => array('First Name', array('==', '!=', '{}', '!{}', 'RE')),
-        'lastname'   => array('Last Name', array('==', '!=', '{}', '!{}', 'RE')),
-        'street'     => array('Street', array('==', '!=', '{}', '!{}', 'RE')),
-        'city'       => array('City', array('==', '!=', '{}', '!{}', 'RE')),
-        'region'     => array('Region', array('==', '!=', '{}', '!{}', 'RE')),
-        'country_id' => array('Country', array('==', '!=', 'RE')),
-        'all'        => array('All', array('==', '!=', '{}', '!{}', 'RE')),
+        'name'        => array('Full Name', array('==', '!=', '{}', '!{}', 'RE')),
+        'firstname'   => array('First Name', array('==', '!=', '{}', '!{}', 'RE')),
+        'lastname'    => array('Last Name', array('==', '!=', '{}', '!{}', 'RE')),
+        'street_full' => array('Street', array('==', '!=', '{}', '!{}', 'RE')),
+        'city'        => array('City', array('==', '!=', '{}', '!{}', 'RE')),
+        'region'      => array('Region', array('==', '!=', '{}', '!{}', 'RE')),
+        'country_id'  => array('Country', array('==', '!=', 'RE')),
+        'all'         => array('All', array('==', '!=', '{}', '!{}', 'RE')),
     );
 
     protected function getAttributeValue(Varien_Object $object)
