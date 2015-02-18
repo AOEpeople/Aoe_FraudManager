@@ -20,10 +20,20 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Order_Address_Attribute ext
 
         /** @var Mage_Sales_Model_Order_Address $object */
         if ($object instanceof Mage_Sales_Model_Order_Address && $attribute === 'all') {
-            return $object->format("text");
+            $value = $object->format("text");
         } else {
-            return $object->getDataUsingMethod($attribute);
+            $value = $object->getDataUsingMethod($attribute);
         }
+
+        if (is_scalar($value)) {
+            // Convert 2+ spaces in a row into a single space
+            $value = preg_replace('/ {2,}/u', ' ', $value);
+
+            // Remove leading/trailing spaces
+            $value = trim($value);
+        }
+
+        return $value;
     }
 
     public function validate(Varien_Object $object)
