@@ -1,0 +1,11 @@
+<!--@subject Fraud Manager Notification @-->
+Details
+===========
+Quote: {{var order.quote_id}}
+Order: {{var order.increment_id}}
+Value: {{var order.base_grand_total}} {{var order.base_currency_code}}
+Customer: {{var order.customer_name}} ({{var order.customer_email}})
+
+Messages
+===========
+{{var message}}

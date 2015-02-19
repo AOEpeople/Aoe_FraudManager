@@ -40,6 +40,20 @@
                 </setup>
             </Aoe_FraudManager>
         </resources>
+        <template>
+            <email>
+                <aoe_fraudmanager_blacklist_rules_notification_email_template translate="label">
+                    <label>Fraud Manager Email Notification Template</label>
+                    <file>aoe_fraudmanager/notification_email.txt</file>
+                    <type>txt</type>
+                </aoe_fraudmanager_blacklist_rules_notification_email_template>
+                <aoe_fraudmanager_hold_rules_notification_email_template translate="label">
+                    <label>Fraud Manager Email Notification Template</label>
+                    <file>aoe_fraudmanager/notification_email.txt</file>
+                    <type>txt</type>
+                </aoe_fraudmanager_hold_rules_notification_email_template>
+            </email>
+        </template>
     </global>
     <admin>
         <routers>

@@ -68,10 +68,13 @@ class Aoe_FraudManager_Model_Observer
             ->filterValidForOrder($order);
 
         $messages = array();
+        $notifications = array();
         foreach ($rules as $rule) {
             /** @var Aoe_FraudManager_Model_BlacklistRule $rule */
             if ($rule->validate($order)) {
-                Mage::log(sprintf('Preventing order due to rules check: %s / %s', $rule->getName(), $order->getId()), Zend_Log::WARN, 'fraud.log');
+                $notification = sprintf('Preventing order due to rules check: %s / %s', $rule->getName(), $order->getId());
+                $notifications[] = $notification;
+                Mage::log($notification, Zend_Log::WARN, 'fraud.log');
 
                 $message = $rule->getMessage();
                 if (empty($message)) {
@@ -83,6 +86,14 @@ class Aoe_FraudManager_Model_Observer
                 if ($rule->getStopProcessing()) {
                     break;
                 }
+            }
+        }
+
+        if (count($notifications)) {
+            try {
+                $helper->notify(implode("\n", $notifications), array('order' => $order));
+            } catch (Exception $e) {
+                Mage::logException($e);
             }
         }
 
@@ -115,10 +126,13 @@ class Aoe_FraudManager_Model_Observer
             ->getCollection()
             ->filterValidForOrder($order);
 
+        $notifications = array();
         foreach ($rules as $rule) {
             /** @var Aoe_FraudManager_Model_HoldRule $rule */
             if ($rule->validate($order)) {
-                Mage::log(sprintf('Holding order due to rules check: %s / %s', $rule->getName(), $order->getId()), Zend_Log::INFO, 'fraud.log');
+                $notification = sprintf('Holding order due to rules check: %s / %s', $rule->getName(), $order->getId());
+                $notifications[] = $notification;
+                Mage::log($notification, Zend_Log::INFO, 'fraud.log');
 
                 if ($order->canHold()) {
                     $order->setHoldBeforeState($order->getState());
@@ -138,6 +152,14 @@ class Aoe_FraudManager_Model_Observer
                 if ($rule->getStopProcessing()) {
                     break;
                 }
+            }
+        }
+
+        if (count($notifications)) {
+            try {
+                $helper->notify(implode("\n", $notifications), array('order' => $order));
+            } catch (Exception $e) {
+                Mage::logException($e);
             }
         }
 
