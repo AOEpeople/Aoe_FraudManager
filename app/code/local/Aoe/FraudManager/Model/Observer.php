@@ -72,7 +72,7 @@ class Aoe_FraudManager_Model_Observer
         foreach ($rules as $rule) {
             /** @var Aoe_FraudManager_Model_BlacklistRule $rule */
             if ($rule->validate($order)) {
-                $notification = sprintf('Preventing order due to rules check: %s / %s', $rule->getName(), $order->getId());
+                $notification = sprintf('Preventing order due to rules check: %s / %s / %s', $rule->getName(), $order->getIncrementId(), $order->getQuoteId());
                 $notifications[] = $notification;
                 Mage::log($notification, Zend_Log::WARN, 'fraud.log');
 
@@ -130,7 +130,7 @@ class Aoe_FraudManager_Model_Observer
         foreach ($rules as $rule) {
             /** @var Aoe_FraudManager_Model_HoldRule $rule */
             if ($rule->validate($order)) {
-                $notification = sprintf('Holding order due to rules check: %s / %s', $rule->getName(), $order->getId());
+                $notification = sprintf('Holding order due to rules check: %s / %s / %s', $rule->getName(), $order->getIncrementId(), $order->getQuoteId());
                 $notifications[] = $notification;
                 Mage::log($notification, Zend_Log::INFO, 'fraud.log');
 
