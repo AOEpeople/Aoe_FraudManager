@@ -7,8 +7,8 @@ class Aoe_FraudManager_Resource_HoldRule extends Aoe_FraudManager_Resource_Abstr
             '[]',
             array(),
             false,
-            array('Zend_Json', 'encode'),
-            array('Zend_Json', 'decode'),
+            array('Aoe_FraudManager_Resource_HoldRule', 'implodeArray'),
+            array('Aoe_FraudManager_Resource_HoldRule', 'explodeArray'),
         ),
         'conditions'  => array(
             '[]',
