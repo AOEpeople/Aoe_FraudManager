@@ -1,4 +1,4 @@
-[![AOE](http://www.aoe.com/typo3conf/ext/aoe_template/i/aoe-logo.png)](http://www.aoe.com)
+[![AOE](aoe-logo.png)](http://www.aoe.com)
 
 # Aoe_FraudManager Magento Module
 
