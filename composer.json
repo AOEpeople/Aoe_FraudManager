@@ -1,6 +1,6 @@
 {
-    "name": "AOEPeople/Aoe_FraudManager",
-    "description": "Magento Fraud Managment",
+    "name": "aoepeople/aoe_fraudmanager",
+    "description": "Rule based fraud management for Magento",
     "authors": [
         {
             "name": "Lee Saferite",
@@ -11,7 +11,7 @@
     "require": {
         "php": ">= 5.3",
         "magento-hackathon/magento-composer-installer": "*",
-        "aoepeople/Aoe_Layout": ">=2.1.1"
+        "aoepeople/aoe_layout": ">=2.1.1"
     },
     "require-dev": {
         "ecomdev/ecomdev_phpunit": "*",
