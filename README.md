@@ -2,6 +2,8 @@
 
 # Aoe_FraudManager Magento Module
 
+[![Build Status](https://travis-ci.org/AOEpeople/Aoe_FraudManager.svg?branch=master)](https://travis-ci.org/AOEpeople/Aoe_FraudManager)
+
 ## License
 [OSL v3.0](http://opensource.org/licenses/OSL-3.0)
 
