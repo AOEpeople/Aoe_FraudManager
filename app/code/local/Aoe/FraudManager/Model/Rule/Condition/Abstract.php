@@ -90,7 +90,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Obj
     public function getRemoveLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
-        $html = ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="' . $this->__('Remove') . '"><img src="' . $src . '"  alt="" class="v-middle" /></a></span>';
+        $html = ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="' . $this->translate('Remove') . '"><img src="' . $src . '"  alt="" class="v-middle" /></a></span>';
         return $html;
     }
 
@@ -136,7 +136,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Obj
      *
      * @return string
      */
-    protected function __()
+    protected function translate()
     {
         if (!$this->moduleName) {
             $class = get_class($this);

@@ -56,6 +56,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
         switch ($operator) {
             case '!=':
                 $invertResult = true;
+                // Fall-through
             case '==':
                 if (is_array($expectedValue)) {
                     if (is_array($actualValue)) {
@@ -75,6 +76,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '>':
                 $invertResult = true;
+                // Fall-through
             case '<=':
                 if (!is_scalar($actualValue)) {
                     return false;
@@ -84,6 +86,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '<':
                 $invertResult = true;
+                // Fall-through
             case '>=':
                 if (!is_scalar($actualValue)) {
                     return false;
@@ -93,6 +96,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '!{}':
                 $invertResult = true;
+                // Fall-through
             case '{}':
                 if (is_array($expectedValue)) {
                     if (is_array($actualValue)) {
@@ -117,6 +121,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '!()':
                 $invertResult = true;
+                // Fall-through
             case '()':
                 if (is_array($actualValue)) {
                     $result = (count(array_intersect($actualValue, (array)$expectedValue)) > 0);

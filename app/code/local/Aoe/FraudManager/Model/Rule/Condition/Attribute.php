@@ -27,7 +27,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
     public function getAttributeOptions()
     {
         if ($this->attributeOptions === null) {
-            $this->attributeOptions = array_map(array($this, '__'), array_map('reset', $this->attributes));
+            $this->attributeOptions = array_map(array($this, 'translate'), array_map('reset', $this->attributes));
             if (empty($this->attributeOptions)) {
                 $this->attributeOptions = false;
             }
@@ -202,7 +202,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
 
     public function getConditionConfigHtml()
     {
-        $html = $this->__($this->getName()) . ' ';
+        $html = $this->translate($this->getName()) . ' ';
         $html .= $this->getAttributeElement()->getHtml();
         $html .= $this->getOperatorElement()->getHtml();
         $html .= $this->getValueElement()->getHtml();

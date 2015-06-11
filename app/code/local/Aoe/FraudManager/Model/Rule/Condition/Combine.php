@@ -8,7 +8,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
     protected function _construct()
     {
         $this->setType('Aoe_FraudManager/Rule_Condition_Combine');
-        $this->setName($this->__('Conditions Combination'));
+        $this->setName($this->translate('Conditions Combination'));
         $this->arrayKeys[] = 'aggregator';
         $this->arrayKeys[] = 'value';
     }
@@ -176,7 +176,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
 
     public function getConditionConfigHtml()
     {
-        return $this->__(
+        return $this->translate(
             'If %s of these conditions are %s:',
             $this->getAggregatorElement()->getHtml(),
             $this->getValueElement()->getHtml()
@@ -186,8 +186,8 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
     public function getAggregatorOptions()
     {
         $options = array(
-            'all' => $this->__('ALL'),
-            'any' => $this->__('ANY'),
+            'all' => $this->translate('ALL'),
+            'any' => $this->translate('ANY'),
         );
 
         return $options;
@@ -220,8 +220,8 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
     public function getValueOptions()
     {
         $options = array(
-            '1' => $this->__('TRUE'),
-            '0' => $this->__('FALSE'),
+            '1' => $this->translate('TRUE'),
+            '0' => $this->translate('FALSE'),
         );
 
         return $options;
@@ -258,7 +258,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
      */
     public function getNewChildOptions()
     {
-        $conditions = array('' => $this->__('Please choose a condition to add...'));
+        $conditions = array('' => $this->translate('Please choose a condition to add...'));
 
         // Add self reference for recursive combinations
         $conditions[$this->getSelfType()] = $this->getName();
@@ -275,7 +275,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
 
     public function getNewChildName()
     {
-        return $this->__('Add');
+        return $this->translate('Add');
     }
 
     public function getNewChildElement()
