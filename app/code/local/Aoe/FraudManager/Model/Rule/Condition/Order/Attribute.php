@@ -4,7 +4,8 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Attribute extends Aoe_FraudMan
 {
     protected $attributes = array(
         'grand_total'    => array('Grand Total', array('==', '!=', '<=', '<', '>=', '>')),
-        'customer_email' => array('Email', array('==', '!=', '{}', '!{}', 'RE')),
+        'customer_email' => array('Email Address', array('==', '!=', '{}', '!{}', 'RE')),
+        'email_domain'   => array('Email Domain', array('()', '!()', 'RE')),
         'remote_ip'      => array('Remote IP', array('()', '!()')),
     );
 
@@ -38,13 +39,21 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Attribute extends Aoe_FraudMan
 
     protected function getAttributeValue(Varien_Object $object)
     {
-        if ($this->getAttribute() === 'remote_ip') {
-            $ipList = explode(',', $object->getDataUsingMethod('x_forwarded_for'));
-            $ipList[] = $object->getDataUsingMethod('remote_ip');
-            $ipList = array_unique(array_filter(array_map('trim', $ipList)));
-            return $ipList;
+        switch ($this->getAttribute()) {
+            case 'email_domain':
+                $emailAddress = $object->getDataUsingMethod('customer_email');
+                $emailDomain = substr($emailAddress, strpos($emailAddress, '@') + 1);
+                $emailDomain = trim(strtolower($emailDomain));
+                return $emailDomain;
+                break;
+            case 'remote_ip':
+                $ipList = explode(',', $object->getDataUsingMethod('x_forwarded_for'));
+                $ipList[] = $object->getDataUsingMethod('remote_ip');
+                $ipList = array_unique(array_filter(array_map('trim', $ipList)));
+                return $ipList;
+                break;
+            default:
+                return parent::getAttributeValue($object);
         }
-
-        return parent::getAttributeValue($object);
     }
 }
