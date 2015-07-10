@@ -5,6 +5,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Attribute extends Aoe_FraudMan
     protected $attributes = array(
         'grand_total'    => array('Grand Total', array('==', '!=', '<=', '<', '>=', '>')),
         'customer_email' => array('Email', array('==', '!=', '{}', '!{}', 'RE')),
+        'remote_ip'      => array('Remote IP', array('()', '!()')),
     );
 
     protected $attributeOptions = null;
@@ -33,5 +34,17 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Attribute extends Aoe_FraudMan
         }
 
         return parent::validate($object);
+    }
+
+    protected function getAttributeValue(Varien_Object $object)
+    {
+        if ($this->getAttribute() === 'remote_ip') {
+            $ipList = explode(',', $object->getDataUsingMethod('x_forwarded_for'));
+            $ipList[] = $object->getDataUsingMethod('remote_ip');
+            $ipList = array_unique(array_filter(array_map('trim', $ipList)));
+            return $ipList;
+        }
+
+        return parent::getAttributeValue($object);
     }
 }
