@@ -3,10 +3,11 @@
 class Aoe_FraudManager_Model_Rule_Condition_Order_Attribute extends Aoe_FraudManager_Model_Rule_Condition_Attribute
 {
     protected $attributes = array(
-        'grand_total'    => array('Grand Total', array('==', '!=', '<=', '<', '>=', '>')),
-        'customer_email' => array('Email Address', array('==', '!=', '{}', '!{}', 'RE')),
-        'email_domain'   => array('Email Domain', array('()', '!()', 'RE')),
-        'remote_ip'      => array('Remote IP', array('()', '!()')),
+        'grand_total'     => array('Grand Total', array('==', '!=', '<=', '<', '>=', '>')),
+        'customer_email'  => array('Email Address', array('==', '!=', '{}', '!{}', 'RE')),
+        'email_domain'    => array('Email Domain', array('()', '!()', 'RE')),
+        'remote_ip'       => array('Remote IP', array('()', '!()')),
+        'shipping_method' => array('Shipping Method', array('{}', '!{}', '()', '!()', 'RE')),
     );
 
     protected $attributeOptions = null;
