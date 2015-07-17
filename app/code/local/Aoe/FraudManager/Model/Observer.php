@@ -45,6 +45,13 @@ class Aoe_FraudManager_Model_Observer
             $conditions[$conditionName][$condition->getType() . '|' . $attribute] = $label;
         }
 
+        /** @var Aoe_FraudManager_Model_Rule_Condition_Order_Address_Compare $condition */
+        $condition = Mage::getModel('Aoe_FraudManager/Rule_Condition_Order_Address_Compare');
+        $conditionName = $helper->__($condition->getName());
+        foreach ($condition->getAttributeOptions() as $attribute => $label) {
+            $conditions[$conditionName][$condition->getType() . '|' . $attribute] = $label;
+        }
+
         $container->setConditions($conditions);
     }
 
