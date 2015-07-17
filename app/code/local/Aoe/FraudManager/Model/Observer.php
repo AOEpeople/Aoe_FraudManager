@@ -31,7 +31,7 @@ class Aoe_FraudManager_Model_Observer
             $conditions[$conditionName][$condition->getType() . '|' . $attribute] = $label;
         }
 
-        /** @var Aoe_FraudManager_Model_Rule_Condition_Order_ShippingAddress_Attribute $condition */
+        /** @var Aoe_FraudManager_Model_Rule_Condition_Order_BillingAddress_Attribute $condition */
         $condition = Mage::getModel('Aoe_FraudManager/Rule_Condition_Order_BillingAddress_Attribute');
         $conditionName = $helper->__($condition->getName());
         foreach ($condition->getAttributeOptions() as $attribute => $label) {
