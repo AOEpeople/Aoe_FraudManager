@@ -149,7 +149,7 @@ class Aoe_FraudManager_Model_Observer
                 $status = $rule->getStatus();
                 /** @var Mage_Sales_Model_Order_Config $salesConfig */
                 $salesConfig = Mage::getSingleton('sales/order_config');
-                $allowedStatuses = $salesConfig->getStateStatuses(Mage_Sales_Model_Order::STATE_HOLDED);
+                $allowedStatuses = $salesConfig->getStateStatuses(Mage_Sales_Model_Order::STATE_HOLDED, false);
                 if (!in_array($status, $allowedStatuses)) {
                     $status = true;
                 }
