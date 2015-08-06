@@ -58,6 +58,9 @@ PATH="${TESTSTAND}/tools:${TESTSTAND}/bin:${PATH}"
 # Update n98-magerun
 n98-magerun.phar self-update
 
+# Update composer
+composer.phar self-update
+
 # Add the artifact repository to the testing framework
 echo "Add the artifact repository to the testing framework"
 jq ".repositories |= .+ [{type:\"artifact\", url:\"${BUILDENV}/artifacts\"}]" "${TESTSTAND}/composer.json" > "${TESTSTAND}/composer.json.new"
@@ -65,7 +68,7 @@ mv -f "${TESTSTAND}/composer.json.new" "${TESTSTAND}/composer.json"
 
 # Use composer to require the package being tested
 cd "${TESTSTAND}"
-composer require --no-interaction --no-progress ${COMPOSER_PACKAGE_NAME}:dev-current
+composer.phar require --no-interaction --no-progress ${COMPOSER_PACKAGE_NAME}:dev-current
 
 # Use modman to deploy any Magento modules
 cd "${TESTSTAND}"
