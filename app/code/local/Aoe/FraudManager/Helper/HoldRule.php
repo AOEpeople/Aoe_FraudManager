@@ -69,13 +69,13 @@ class Aoe_FraudManager_Helper_HoldRule extends Aoe_FraudManager_Helper_AbstractR
         $fieldset->addField(
             'status',
             'select',
-            array(
+            [
                 'label'    => $this->__('Status'),
                 'title'    => $this->__('Status'),
                 'name'     => 'status',
                 'required' => true,
                 'options'  => $this->getSourceModelHash('Aoe_FraudManager/Config_Source_Order_HoldStatuses'),
-            ),
+            ],
             'description'
         );
 
@@ -94,7 +94,7 @@ class Aoe_FraudManager_Helper_HoldRule extends Aoe_FraudManager_Helper_AbstractR
      *
      * @return $this
      */
-    public function notify($message, array $extraVariables = array(), $store = null)
+    public function notify($message, array $extraVariables = [], $store = null)
     {
         $store = Mage::app()->getStore($store);
 
@@ -131,7 +131,7 @@ class Aoe_FraudManager_Helper_HoldRule extends Aoe_FraudManager_Helper_AbstractR
         $mailer->setStoreId($store->getId());
         $mailer->setSender($sender);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams($extraVariables + array('message' => $message));
+        $mailer->setTemplateParams($extraVariables + ['message' => $message]);
         $mailer->send();
 
         return $this;

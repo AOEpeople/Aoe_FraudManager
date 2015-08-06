@@ -2,16 +2,16 @@
 
 class Aoe_FraudManager_Model_Rule_Condition_Order_Address_Compare extends Aoe_FraudManager_Model_Rule_Condition_Order_Address_Attribute
 {
-    protected $attributes = array(
-        'name'        => array('Full Name', array('==', '!=')),
-        'firstname'   => array('First Name', array('==', '!=')),
-        'lastname'    => array('Last Name', array('==', '!=')),
-        'street_full' => array('Street', array('==', '!=')),
-        'city'        => array('City', array('==', '!=')),
-        'region'      => array('Region', array('==', '!=')),
-        'country_id'  => array('Country', array('==', '!=')),
-        'all'         => array('All', array('==', '!=')),
-    );
+    protected $attributes = [
+        'name'        => ['Full Name', ['==', '!=']],
+        'firstname'   => ['First Name', ['==', '!=']],
+        'lastname'    => ['Last Name', ['==', '!=']],
+        'street_full' => ['Street', ['==', '!=']],
+        'city'        => ['City', ['==', '!=']],
+        'region'      => ['Region', ['==', '!=']],
+        'country_id'  => ['Country', ['==', '!=']],
+        'all'         => ['All', ['==', '!=']],
+    ];
 
     protected function _construct()
     {
@@ -73,6 +73,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Address_Compare extends Aoe_Fr
         $html .= $this->getAttributeElement()->getHtml();
         $html .= $this->getOperatorElement()->getHtml();
         $html .= $this->getChooserContainerHtml();
+
         return $html;
     }
 }

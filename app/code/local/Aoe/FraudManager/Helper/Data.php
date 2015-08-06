@@ -10,7 +10,7 @@ class Aoe_FraudManager_Helper_Data extends Aoe_Layout_Helper_Data
      *
      * @return  string
      */
-    protected function _getUrl($route, $params = array())
+    protected function _getUrl($route, $params = [])
     {
         return Mage::helper('adminhtml/data')->getUrl($route, $params);
     }

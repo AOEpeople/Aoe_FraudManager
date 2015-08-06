@@ -79,6 +79,7 @@ abstract class Aoe_FraudManager_Model_Rule_Abstract extends Mage_Core_Model_Abst
             $this->conditionsForm->setFieldNameSuffix('rule[conditions]');
             $this->conditionsForm->addType('select', Mage::getConfig()->getModelClassName('Aoe_FraudManager/Form_Element_Select'));
         }
+
         return $this->conditionsForm;
     }
 

@@ -92,14 +92,14 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
         $fieldset->addField(
             'message',
             'textarea',
-            array(
+            [
                 'name'     => 'message',
                 'label'    => $this->__('Message'),
                 'title'    => $this->__('Message'),
                 'comment'  => $this->__('Message sent to customer when this rule is activated'),
                 'style'    => 'height: 100px;',
                 'required' => false,
-            ),
+            ],
             'description'
         );
 
@@ -117,7 +117,7 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
      *
      * @return $this
      */
-    public function notify($message, array $extraVariables = array(), $store = null)
+    public function notify($message, array $extraVariables = [], $store = null)
     {
         $store = Mage::app()->getStore($store);
 
@@ -154,7 +154,7 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
         $mailer->setStoreId($store->getId());
         $mailer->setSender($sender);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams($extraVariables + array('message' => $message));
+        $mailer->setTemplateParams($extraVariables + ['message' => $message]);
         $mailer->send();
 
         return $this;

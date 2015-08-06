@@ -73,7 +73,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
     public function getConditions()
     {
         if (!is_array($this->getData('conditions'))) {
-            $this->setConditions(array());
+            $this->setConditions([]);
         }
 
         return $this->getData('conditions');
@@ -121,6 +121,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
         $conditions = $this->getConditions();
         unset($conditions[$condition->getId()]);
         $this->setConditions($conditions);
+
         return $this;
     }
 
@@ -185,10 +186,10 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
 
     public function getAggregatorOptions()
     {
-        $options = array(
+        $options = [
             'all' => $this->translate('ALL'),
             'any' => $this->translate('ANY'),
-        );
+        ];
 
         return $options;
     }
@@ -196,6 +197,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
     public function getAggregatorName()
     {
         $options = $this->getAggregatorOptions();
+
         return (isset($options[$this->getAggregator()]) ? $options[$this->getAggregator()] : '');
     }
 
@@ -204,12 +206,12 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
         $element = $this->getForm()->addField(
             $this->getId() . '__aggregator',
             'select',
-            array(
+            [
                 'name'    => $this->getId() . '[aggregator]',
                 'value'   => $this->getAggregator(),
                 'label'   => $this->getAggregatorName(),
                 'options' => $this->getAggregatorOptions(),
-            )
+            ]
         );
 
         $element->setRenderer(Mage::getSingleton('Aoe_FraudManager/Form_Element_Renderer_Editable'));
@@ -219,10 +221,10 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
 
     public function getValueOptions()
     {
-        $options = array(
+        $options = [
             '1' => $this->translate('TRUE'),
             '0' => $this->translate('FALSE'),
-        );
+        ];
 
         return $options;
     }
@@ -230,6 +232,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
     public function getValueName()
     {
         $options = $this->getValueOptions();
+
         return (isset($options[$this->getValue()]) ? $options[$this->getValue()] : '');
     }
 
@@ -238,12 +241,12 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
         $element = $this->getForm()->addField(
             $this->getId() . '__value',
             'select',
-            array(
+            [
                 'name'    => $this->getId() . '[value]',
                 'value'   => $this->getValue(),
                 'label'   => $this->getValueName(),
                 'options' => $this->getValueOptions(),
-            )
+            ]
         );
 
         $element->setRenderer(Mage::getSingleton('Aoe_FraudManager/Form_Element_Renderer_Editable'));
@@ -258,14 +261,14 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
      */
     public function getNewChildOptions()
     {
-        $conditions = array('' => $this->translate('Please choose a condition to add...'));
+        $conditions = ['' => $this->translate('Please choose a condition to add...')];
 
         // Add self reference for recursive combinations
         $conditions[$this->getSelfType()] = $this->getName();
 
         // Fire an event to add additional conditions
         $container = new Varien_Object();
-        Mage::dispatchEvent('aoe_fraudmanager_rule_condition_combine_additional', array('parent' => $this, 'container' => $container));
+        Mage::dispatchEvent('aoe_fraudmanager_rule_condition_combine_additional', ['parent' => $this, 'container' => $container]);
         if ($additional = $container->getConditions()) {
             $conditions = array_merge($conditions, $additional);
         }
@@ -283,11 +286,11 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
         $element = $this->getForm()->addField(
             $this->getId() . '__new_child',
             'select',
-            array(
+            [
                 'name'    => $this->getId() . '[new_child]',
                 'label'   => $this->getNewChildName(),
                 'options' => $this->getNewChildOptions(),
-            )
+            ]
         );
 
         $element->setRenderer(Mage::getSingleton('Aoe_FraudManager/Form_Element_Renderer_Newchild'));

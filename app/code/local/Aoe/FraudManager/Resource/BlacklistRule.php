@@ -2,22 +2,22 @@
 
 class Aoe_FraudManager_Resource_BlacklistRule extends Aoe_FraudManager_Resource_Abstract
 {
-    protected $_serializableFields = array(
-        'website_ids' => array(
+    protected $_serializableFields = [
+        'website_ids' => [
             '[]',
-            array(),
+            [],
             false,
-            array('Aoe_FraudManager_Resource_BlacklistRule', 'implodeArray'),
-            array('Aoe_FraudManager_Resource_BlacklistRule', 'explodeArray'),
-        ),
-        'conditions'  => array(
+            ['Aoe_FraudManager_Resource_BlacklistRule', 'implodeArray'],
+            ['Aoe_FraudManager_Resource_BlacklistRule', 'explodeArray'],
+        ],
+        'conditions'  => [
             '[]',
-            array(),
+            [],
             false,
-            array('Zend_Json', 'encode'),
-            array('Zend_Json', 'decode'),
-        )
-    );
+            ['Zend_Json', 'encode'],
+            ['Zend_Json', 'decode'],
+        ],
+    ];
 
     public function _construct()
     {

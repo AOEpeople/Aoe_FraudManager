@@ -10,7 +10,7 @@ class Aoe_FraudManager_Model_Form_Element_Select extends Varien_Data_Form_Elemen
             if (is_array($options)) {
                 $values = $this->convertOptionsToValues($options);
             } elseif (is_string($options)) {
-                $values = array(array('value' => $options, 'label' => $options));
+                $values = [['value' => $options, 'label' => $options]];
             }
             $this->setValues($values);
         }
@@ -18,19 +18,19 @@ class Aoe_FraudManager_Model_Form_Element_Select extends Varien_Data_Form_Elemen
 
     protected function convertOptionsToValues(array $options)
     {
-        $values = array();
+        $values = [];
 
         foreach ($options as $value => $label) {
             if (is_array($label)) {
-                $values[] = array(
+                $values[] = [
                     'label' => $value,
                     'value' => $this->convertOptionsToValues($label),
-                );
+                ];
             } else {
-                $values[] = array(
+                $values[] = [
                     'label' => $label,
                     'value' => $value,
-                );
+                ];
             }
         }
 

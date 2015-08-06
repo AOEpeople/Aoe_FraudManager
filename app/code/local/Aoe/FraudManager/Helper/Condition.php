@@ -14,10 +14,10 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
         return $this->__('Apply');
     }
 
-    public function getOperators(array $filter = array())
+    public function getOperators(array $filter = [])
     {
         if ($this->operators === null) {
-            $this->operators = array(
+            $this->operators = [
                 '=='  => $this->__('is'),
                 '!='  => $this->__('is not'),
                 '>='  => $this->__('equals or greater than'),
@@ -29,7 +29,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
                 '()'  => $this->__('is one of'),
                 '!()' => $this->__('is not one of'),
                 'RE'  => $this->__('matches regex pattern'),
-            );
+            ];
         }
 
         if (empty($filter)) {
@@ -37,6 +37,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
         } else {
             $operators = $this->operators;
             $operators = array_intersect_key($operators, array_flip($filter));
+
             return $operators;
         }
     }
@@ -56,7 +57,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
         switch ($operator) {
             case '!=':
                 $invertResult = true;
-                // Fall-through
+            // Fall-through
             case '==':
                 if (is_array($expectedValue)) {
                     if (is_array($actualValue)) {
@@ -76,7 +77,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '>':
                 $invertResult = true;
-                // Fall-through
+            // Fall-through
             case '<=':
                 if (!is_scalar($actualValue)) {
                     return false;
@@ -86,7 +87,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '<':
                 $invertResult = true;
-                // Fall-through
+            // Fall-through
             case '>=':
                 if (!is_scalar($actualValue)) {
                     return false;
@@ -96,7 +97,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '!{}':
                 $invertResult = true;
-                // Fall-through
+            // Fall-through
             case '{}':
                 if (is_array($expectedValue)) {
                     if (is_array($actualValue)) {
@@ -121,7 +122,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
 
             case '!()':
                 $invertResult = true;
-                // Fall-through
+            // Fall-through
             case '()':
                 if (is_array($actualValue)) {
                     $result = (count(array_intersect($actualValue, (array)$expectedValue)) > 0);
@@ -168,6 +169,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
             if ($strict) {
                 $validatePattern = '^' . $validatePattern . '$';
             }
+
             return (bool)preg_match('~' . $validatePattern . '~iu', $actualValue);
         }
     }

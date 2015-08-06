@@ -6,9 +6,9 @@
  */
 abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_FraudManager_Model_Rule_Condition_Abstract
 {
-    protected $attributes = array();
+    protected $attributes = [];
     protected $attributeOptions = null;
-    protected $arrayOperators = array('()', '!()');
+    protected $arrayOperators = ['()', '!()'];
 
     /**
      * Internal constructor not depended on params. Can be used for object initialization
@@ -27,7 +27,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
     public function getAttributeOptions()
     {
         if ($this->attributeOptions === null) {
-            $this->attributeOptions = array_map(array($this, 'translate'), array_map('reset', $this->attributes));
+            $this->attributeOptions = array_map([$this, 'translate'], array_map('reset', $this->attributes));
             if (empty($this->attributeOptions)) {
                 $this->attributeOptions = false;
             }
@@ -79,7 +79,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
      */
     public function getOperatorOptions()
     {
-        $allowedOperators = array();
+        $allowedOperators = [];
         if (isset($this->attributes[$this->getAttribute()]) && isset($this->attributes[$this->getAttribute()][1])) {
             $allowedOperators = $this->attributes[$this->getAttribute()][1];
         }
@@ -116,6 +116,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
     public function getOperatorName()
     {
         $options = $this->getOperatorOptions();
+
         return (isset($options[$this->getOperator()]) ? $options[$this->getOperator()] : '');
     }
 
@@ -182,12 +183,13 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
         }
 
         if (is_array($value)) {
-            $valueLabels = array();
+            $valueLabels = [];
             foreach ($options as $k => $v) {
                 if (in_array($k, $value)) {
                     $valueLabels[] = $v;
                 }
             }
+
             return implode(', ', $valueLabels);
         } elseif (array_key_exists($value, $options)) {
             return $options[$value];
@@ -207,6 +209,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
         $html .= $this->getOperatorElement()->getHtml();
         $html .= $this->getValueElement()->getHtml();
         $html .= $this->getChooserContainerHtml();
+
         return $html;
     }
 
@@ -222,23 +225,23 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
             $element = $this->getForm()->addField(
                 $this->getId() . '__attribute',
                 'select',
-                array(
+                [
                     'name'    => $this->getId() . '[attribute]',
                     'options' => $this->getAttributeOptions(),
                     'value'   => $this->getAttribute(),
                     'label'   => $this->getAttributeName(),
-                )
+                ]
             );
         } else {
             $element = $this->getForm()->addField(
                 $this->getId() . '__attribute',
                 'text',
-                array(
+                [
                     'name'         => $this->getId() . '[attribute]',
                     'value'        => $this->getAttribute(),
                     'label'        => $this->getAttributeName(),
                     'show_as_text' => true,
-                )
+                ]
             );
         }
 
@@ -255,12 +258,12 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
         $element = $this->getForm()->addField(
             $this->getId() . '__operator',
             'select',
-            array(
+            [
                 'name'    => $this->getId() . '[operator]',
                 'options' => $this->getOperatorOptions(),
                 'value'   => $this->getOperator(),
                 'label'   => $this->getOperatorName(),
-            )
+            ]
         );
 
         $element->setRenderer(Mage::getSingleton('Aoe_FraudManager/Form_Element_Renderer_Editable'));
@@ -292,12 +295,12 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Attribute extends Aoe_Fraud
 
     public function getValueElement()
     {
-        $elementParams = array(
+        $elementParams = [
             'name'    => $this->getId() . '[value]',
             'value'   => $this->getValue(),
             'options' => $this->getValueOptions(),
             'label'   => $this->getValueName(),
-        );
+        ];
 
         $options = $this->getValueOptions();
         if (is_array($options)) {

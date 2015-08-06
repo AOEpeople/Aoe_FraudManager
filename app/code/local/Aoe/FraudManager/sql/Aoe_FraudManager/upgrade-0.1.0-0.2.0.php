@@ -10,18 +10,18 @@ $table->addColumn(
     'id',
     Varien_Db_Ddl_Table::TYPE_INTEGER,
     null,
-    array(
+    [
         'primary'  => true,
         'identity' => true,
         'unsigned' => true,
         'nullable' => false,
-    )
+    ]
 );
 $table->addColumn(
     'name',
     Varien_Db_Ddl_Table::TYPE_TEXT,
     pow(2, 8) - 1,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addColumn(
     'description',
@@ -37,13 +37,13 @@ $table->addColumn(
     'stop_processing',
     Varien_Db_Ddl_Table::TYPE_BOOLEAN,
     null,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addColumn(
     'is_active',
     Varien_Db_Ddl_Table::TYPE_BOOLEAN,
     null,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addColumn(
     'conditions',
@@ -59,11 +59,11 @@ $table->addColumn(
     'sort_order',
     Varien_Db_Ddl_Table::TYPE_INTEGER,
     null,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addIndex(
-    $this->getIdxName('Aoe_FraudManager/BlacklistRule', array('is_active')),
-    array('is_active')
+    $this->getIdxName('Aoe_FraudManager/BlacklistRule', ['is_active']),
+    ['is_active']
 );
 $this->getConnection()->createTable($table);
 
@@ -72,18 +72,18 @@ $table->addColumn(
     'id',
     Varien_Db_Ddl_Table::TYPE_INTEGER,
     null,
-    array(
+    [
         'primary'  => true,
         'identity' => true,
         'unsigned' => true,
         'nullable' => false,
-    )
+    ]
 );
 $table->addColumn(
     'name',
     Varien_Db_Ddl_Table::TYPE_TEXT,
     pow(2, 8) - 1,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addColumn(
     'description',
@@ -94,19 +94,19 @@ $table->addColumn(
     'status',
     Varien_Db_Ddl_Table::TYPE_TEXT,
     32,
-    array('nullable' => true)
+    ['nullable' => true]
 );
 $table->addColumn(
     'stop_processing',
     Varien_Db_Ddl_Table::TYPE_BOOLEAN,
     null,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addColumn(
     'is_active',
     Varien_Db_Ddl_Table::TYPE_BOOLEAN,
     null,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addColumn(
     'conditions',
@@ -122,11 +122,11 @@ $table->addColumn(
     'sort_order',
     Varien_Db_Ddl_Table::TYPE_INTEGER,
     null,
-    array('nullable' => false)
+    ['nullable' => false]
 );
 $table->addIndex(
-    $this->getIdxName('Aoe_FraudManager/HoldRule', array('is_active')),
-    array('is_active')
+    $this->getIdxName('Aoe_FraudManager/HoldRule', ['is_active']),
+    ['is_active']
 );
 $this->getConnection()->createTable($table);
 

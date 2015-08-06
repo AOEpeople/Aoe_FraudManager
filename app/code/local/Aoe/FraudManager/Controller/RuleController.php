@@ -6,6 +6,7 @@ abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Con
     {
         if (!$this->getRequest()->isAjax()) {
             $this->_forward('noroute');
+
             return;
         }
 
@@ -16,6 +17,7 @@ abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Con
         $condition = Mage::getModel($type[0]);
         if (!$condition instanceof Aoe_FraudManager_Model_Rule_Condition_Interface) {
             $this->_forward('noroute');
+
             return;
         }
 
@@ -24,10 +26,10 @@ abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Con
 
         $condition->setId($id);
         $condition->setRule($rule);
-        if (is_callable(array($condition, 'setJsFormObject'))) {
+        if (is_callable([$condition, 'setJsFormObject'])) {
             $condition->setJsFormObject($this->getRequest()->getParam('form'));
         }
-        if (isset($type[1]) && is_callable(array($condition, 'setAttribute'))) {
+        if (isset($type[1]) && is_callable([$condition, 'setAttribute'])) {
             $condition->setAttribute($type[1]);
         }
 
@@ -46,7 +48,7 @@ abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Con
         $postData = parent::preprocessPostData($postData);
 
         if (isset($postData['rule']) && is_array($postData['rule'])) {
-            $rule = $this->getHelper()->convertFlatToRecursive($postData['rule'], array('conditions'));
+            $rule = $this->getHelper()->convertFlatToRecursive($postData['rule'], ['conditions']);
             unset($postData['rule']);
             if (isset($rule['conditions'])) {
                 $postData['conditions'] = reset($rule['conditions']);

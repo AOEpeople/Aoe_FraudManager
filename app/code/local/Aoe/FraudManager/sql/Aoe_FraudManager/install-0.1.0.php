@@ -10,12 +10,12 @@ $setup->startSetup();
 $setup->addAttribute(
     Mage_Sales_Model_Order::ENTITY,
     'is_fraud',
-    array(
+    [
         'type'     => Varien_Db_Ddl_Table::TYPE_BOOLEAN,
         'required' => true,
         'comment'  => 'Fraud flag',
         'grid'     => true,
-    )
+    ]
 );
 
 $setup->endSetup();

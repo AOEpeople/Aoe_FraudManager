@@ -62,6 +62,7 @@ abstract class Aoe_FraudManager_Resource_Abstract extends Mage_Core_Model_Resour
         } else {
             $value = (string)$value;
         }
+
         return $value;
     }
 
@@ -70,8 +71,9 @@ abstract class Aoe_FraudManager_Resource_Abstract extends Mage_Core_Model_Resour
         if (is_string($value)) {
             $value = array_filter(array_map('trim', explode(",", $value)));
         } else {
-            $value = array();
+            $value = [];
         }
+
         return $value;
     }
 
@@ -146,6 +148,7 @@ abstract class Aoe_FraudManager_Resource_Abstract extends Mage_Core_Model_Resour
         }
         $object->setUpdatedAt($currentTime);
         $data = parent::_prepareDataForSave($object);
+
         return $data;
     }
 }

@@ -12,7 +12,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Obj
     /**
      * @var array
      */
-    protected $arrayKeys = array('type');
+    protected $arrayKeys = ['type'];
 
     public function getType()
     {
@@ -66,6 +66,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Obj
         $html = $this->getTypeElement()->getHtml();
         $html .= $this->getConditionConfigHtml();
         $html .= $this->getRemoveLinkHtml();
+
         return $html;
     }
 
@@ -74,12 +75,12 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Obj
         $element = $this->getForm()->addField(
             $this->getId() . '__type',
             'hidden',
-            array(
+            [
                 'name'    => $this->getId() . '[type]',
                 'value'   => $this->getType(),
                 'no_span' => true,
                 'class'   => 'hidden',
-            )
+            ]
         );
 
         return $element;
@@ -91,6 +92,7 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Obj
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
         $html = ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="' . $this->translate('Remove') . '"><img src="' . $src . '"  alt="" class="v-middle" /></a></span>';
+
         return $html;
     }
 
@@ -98,9 +100,9 @@ abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Obj
     //=[ Serialization / Deserialization ]==============
     //==================================================
 
-    public function toArray(array $attributes = array())
+    public function toArray(array $attributes = [])
     {
-        $out = array();
+        $out = [];
 
         foreach ($this->arrayKeys as $key) {
             $out[$key] = $this->getDataUsingMethod($key);

@@ -21,7 +21,7 @@ class Aoe_FraudManager_Model_Observer
 
         $conditions = $container->getConditions();
         if (!is_array($conditions)) {
-            $conditions = array();
+            $conditions = [];
         }
 
         /** @var Aoe_FraudManager_Model_Rule_Condition_Order_Attribute $condition */
@@ -74,8 +74,8 @@ class Aoe_FraudManager_Model_Observer
             ->getCollection()
             ->filterValidForOrder($order);
 
-        $messages = array();
-        $notifications = array();
+        $messages = [];
+        $notifications = [];
         foreach ($rules as $rule) {
             /** @var Aoe_FraudManager_Model_BlacklistRule $rule */
             if ($rule->validate($order)) {
@@ -98,7 +98,7 @@ class Aoe_FraudManager_Model_Observer
 
         if (count($notifications)) {
             try {
-                $helper->notify(implode("\n", $notifications), array('order' => $order), $order->getStoreId());
+                $helper->notify(implode("\n", $notifications), ['order' => $order], $order->getStoreId());
             } catch (Exception $e) {
                 Mage::logException($e);
             }
@@ -133,7 +133,7 @@ class Aoe_FraudManager_Model_Observer
             ->getCollection()
             ->filterValidForOrder($order);
 
-        $notifications = array();
+        $notifications = [];
         foreach ($rules as $rule) {
             /** @var Aoe_FraudManager_Model_HoldRule $rule */
             if ($rule->validate($order)) {
@@ -164,7 +164,7 @@ class Aoe_FraudManager_Model_Observer
 
         if (count($notifications)) {
             try {
-                $helper->notify(implode("\n", $notifications), array('order' => $order), $order->getStoreId());
+                $helper->notify(implode("\n", $notifications), ['order' => $order], $order->getStoreId());
             } catch (Exception $e) {
                 Mage::logException($e);
             }

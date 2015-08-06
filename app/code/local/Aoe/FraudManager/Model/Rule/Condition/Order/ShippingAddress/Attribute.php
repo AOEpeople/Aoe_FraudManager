@@ -12,7 +12,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_ShippingAddress_Attribute exte
     public function validate(Varien_Object $object)
     {
         /** @var Mage_Sales_Model_Order_Address $object */
-        if (!$object instanceof Mage_Sales_Model_Order_Address && is_callable(array($object, 'getShippingAddress'))) {
+        if (!$object instanceof Mage_Sales_Model_Order_Address && is_callable([$object, 'getShippingAddress'])) {
             $object = $object->getShippingAddress();
         }
 

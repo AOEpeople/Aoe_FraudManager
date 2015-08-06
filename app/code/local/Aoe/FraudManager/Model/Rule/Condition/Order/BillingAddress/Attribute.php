@@ -12,7 +12,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_BillingAddress_Attribute exten
     public function validate(Varien_Object $object)
     {
         /** @var Mage_Sales_Model_Order_Address $object */
-        if (!$object instanceof Mage_Sales_Model_Order_Address && is_callable(array($object, 'getBillingAddress'))) {
+        if (!$object instanceof Mage_Sales_Model_Order_Address && is_callable([$object, 'getBillingAddress'])) {
             $object = $object->getBillingAddress();
         }
 

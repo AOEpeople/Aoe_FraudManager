@@ -85,7 +85,7 @@ class Aoe_FraudManager_Sales_OrderController extends Mage_Adminhtml_Controller_A
      */
     protected function redirectToOrderView(Mage_Sales_Model_Order $order)
     {
-        return $this->_redirect('adminhtml/sales_order/view', array('order_id' => $order->getId()));
+        return $this->_redirect('adminhtml/sales_order/view', ['order_id' => $order->getId()]);
     }
 
     /**

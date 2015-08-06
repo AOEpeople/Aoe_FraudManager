@@ -91,7 +91,7 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
         $order = $this->resolveOrder($order);
 
         if ($order instanceof Mage_Sales_Model_Order && $order->getId()) {
-            return $this->getUrl('adminhtml/sales_order/setFraudFlag', array('order_id' => $order->getId()));
+            return $this->getUrl('adminhtml/sales_order/setFraudFlag', ['order_id' => $order->getId()]);
         }
 
         return false;
@@ -102,7 +102,7 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
         $order = $this->resolveOrder($order);
 
         if ($order instanceof Mage_Sales_Model_Order && $order->getId()) {
-            return $this->getUrl('adminhtml/sales_order/removeFraudFlag', array('order_id' => $order->getId()));
+            return $this->getUrl('adminhtml/sales_order/removeFraudFlag', ['order_id' => $order->getId()]);
         }
 
         return false;
@@ -116,6 +116,7 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
             $order->setIsFraud(1);
             $order->addStatusHistoryComment(trim($this->__('Marked order as fraud') . "\n\n" . $message));
             $order->save();
+
             return true;
         }
 
@@ -130,6 +131,7 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
             $order->setIsFraud(0);
             $order->addStatusHistoryComment(trim($this->__('Marked order as NOT fraud') . "\n\n" . $message));
             $order->save();
+
             return true;
         }
 
@@ -148,18 +150,18 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
         $form->setMethod('post');
         $form->setUseContainer(true);
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend' => $this->__('Order')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => $this->__('Order')]);
 
         $fieldset->addField(
             'comment',
             'textarea',
-            array(
+            [
                 'id'       => 'comment',
                 'name'     => 'comment',
                 'label'    => $this->__('Comment'),
                 'class'    => 'required-entry',
                 'required' => true,
-            )
+            ]
         );
 
         return $form;

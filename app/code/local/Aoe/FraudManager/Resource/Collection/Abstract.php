@@ -21,10 +21,10 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
             }
         }
 
-        Mage::dispatchEvent('core_collection_abstract_load_after', array('collection' => $this));
+        Mage::dispatchEvent('core_collection_abstract_load_after', ['collection' => $this]);
 
         if ($this->_eventPrefix && $this->_eventObject) {
-            Mage::dispatchEvent($this->_eventPrefix . '_load_after', array($this->_eventObject => $this));
+            Mage::dispatchEvent($this->_eventPrefix . '_load_after', [$this->_eventObject => $this]);
         }
 
         return $this;
@@ -53,12 +53,13 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
 
         if (!isset($this->_joinedTables[$alias])) {
             $this->getSelect()->join(
-                array($alias => $this->getTable($table)),
+                [$alias => $this->getTable($table)],
                 $cond,
                 $cols
             );
             $this->_joinedTables[$alias] = true;
         }
+
         return $this;
     }
 
@@ -85,12 +86,13 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
 
         if (!isset($this->_joinedTables[$alias])) {
             $this->getSelect()->joinLeft(
-                array($alias => $this->getTable($table)),
+                [$alias => $this->getTable($table)],
                 $cond,
                 $cols
             );
             $this->_joinedTables[$alias] = true;
         }
+
         return $this;
     }
 
@@ -135,10 +137,10 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
     public function addFilterToMap($filter, $alias, $group = 'fields')
     {
         if (is_null($this->_map)) {
-            $this->_map = array($group => array());
+            $this->_map = [$group => []];
         } else {
             if (!isset($this->_map[$group])) {
-                $this->_map[$group] = array();
+                $this->_map[$group] = [];
             }
         }
         $this->_map[$group][$filter] = $alias;
@@ -171,7 +173,7 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
             }
             $resultCondition = $this->_translateCondition($field, $condition);
         } else {
-            $conditions = array();
+            $conditions = [];
             foreach ($field as $key => $currField) {
                 if (isset($mapper['having'][$currField])) {
                     $having = true;
@@ -197,7 +199,7 @@ abstract class Aoe_FraudManager_Resource_Collection_Abstract extends Mage_Core_M
     /**
      * @inheritdoc
      */
-    protected function _toOptionArray($valueField = null, $labelField = 'name', $additional = array())
+    protected function _toOptionArray($valueField = null, $labelField = 'name', $additional = [])
     {
         if ($valueField === null) {
             $valueField = $this->getResource()->getIdFieldName();
