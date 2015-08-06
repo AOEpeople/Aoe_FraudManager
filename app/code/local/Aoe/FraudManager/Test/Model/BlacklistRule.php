@@ -14,6 +14,8 @@ class Aoe_FraudManager_Test_Model_BlacklistRule extends EcomDev_PHPUnit_Test_Cas
         /** @var Aoe_FraudManager_Model_BlacklistRule $model */
         $model = Mage::getModel('Aoe_FraudManager/BlacklistRule');
         $this->assertInstanceOf('Aoe_FraudManager_Model_BlacklistRule', $model);
+
+        return $model;
     }
 
     /**

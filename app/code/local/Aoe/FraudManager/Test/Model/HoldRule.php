@@ -14,6 +14,8 @@ class Aoe_FraudManager_Test_Model_HoldRule extends EcomDev_PHPUnit_Test_Case
         /** @var Aoe_FraudManager_Model_HoldRule $model */
         $model = Mage::getModel('Aoe_FraudManager/HoldRule');
         $this->assertInstanceOf('Aoe_FraudManager_Model_HoldRule', $model);
+
+        return $model;
     }
 
     /**
