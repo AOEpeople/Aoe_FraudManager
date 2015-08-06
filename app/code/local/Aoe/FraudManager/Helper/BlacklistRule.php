@@ -2,13 +2,15 @@
 
 class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_AbstractRule
 {
+    const XML_PATH_ACTIVE = 'aoe_fraudmanager/blacklist_rules/active';
     const XML_PATH_NOTIFICATION_EMAIL_TEMPLATE = 'aoe_fraudmanager/blacklist_rules/notification_email_template';
     const XML_PATH_NOTIFICATION_EMAIL_SENDER = 'aoe_fraudmanager/blacklist_rules/notification_email_sender';
     const XML_PATH_NOTIFICATION_EMAIL_RECEIVER = 'aoe_fraudmanager/blacklist_rules/notification_email_receiver';
+    const ACL_PREFIX = 'system/aoe_fraudmanager/blacklist_rule/';
 
-    public function isActive()
+    public function isActive($store = null)
     {
-        return Mage::getStoreConfigFlag('aoe_fraudmanager/blacklist_rules/active');
+        return Mage::getStoreConfigFlag(self::XML_PATH_ACTIVE, $store);
     }
 
     /**
@@ -28,7 +30,7 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
      */
     public function getAclPermission($action)
     {
-        return $this->getAdminSession()->isAllowed('system/aoe_fraudmanager/blacklist_rule/' . trim($action, ' /'));
+        return $this->getAdminSession()->isAllowed(self::ACL_PREFIX . trim($action, ' /'));
     }
 
     /**
@@ -94,7 +96,7 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
      */
     public function notify($message, array $extraVariables = array(), $store = null)
     {
-        $store = Mage::app()->getStore($store ? $store : Mage_Core_Model_Store::ADMIN_CODE);
+        $store = Mage::app()->getStore($store);
 
         // Sender identity code
         $sender = Mage::getStoreConfig(self::XML_PATH_NOTIFICATION_EMAIL_SENDER, $store);
