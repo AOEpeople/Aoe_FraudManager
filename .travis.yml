@@ -12,6 +12,9 @@ env:
 branches:
   except:
     - /^\d+\.\d+\.\d+$/
+addons:
+  hosts:
+    - magento.local
 before_script:
   - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
 script:
