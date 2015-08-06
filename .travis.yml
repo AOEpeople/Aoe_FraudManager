@@ -5,10 +5,13 @@ php:
   - 5.5
 env:
   matrix:
+    - MAGENTO_VERSION=magento-ce-1.9.2.1
+    - MAGENTO_VERSION=magento-ce-1.9.2.0
+    - MAGENTO_VERSION=magento-ce-1.9.1.1
     - MAGENTO_VERSION=magento-ce-1.9.1.0
     - MAGENTO_VERSION=magento-ce-1.9.0.1
+    - MAGENTO_VERSION=magento-ce-1.9.0.0
     - MAGENTO_VERSION=magento-ce-1.8.1.0
-    - MAGENTO_VERSION=magento-ce-1.8.0.0
 branches:
   except:
     - /^\d+\.\d+\.\d+$/
@@ -21,7 +24,7 @@ script:
   # Code Style
   - php phpcs.phar --standard=./phpcs.xml --encoding=utf-8 --report-width=180 ./app
   # Unit Tests
-  #- curl -sSL https://raw.githubusercontent.com/AOEpeople/MageTestStand/master/setup.sh | bash
+  - bash ./run_tests.sh
 notifications:
   email:
     recipients: [ lee.saferite@aoe.com ]
