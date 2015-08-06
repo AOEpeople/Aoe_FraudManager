@@ -9,12 +9,8 @@ class Aoe_FraudManager_Sales_OrderController extends Mage_Adminhtml_Controller_A
     {
         $helper = $this->getHelper();
         $order = $this->initOrder();
-        if (!$helper->isSetFlagActionAllowed($order)) {
-            $this->_forward('noroute');
-            return;
-        }
         try {
-            if ($this->getRequest()->isPost() || !$helper->isSetFlagCommentRequired()) {
+            if ($this->getRequest()->isPost() || !$helper->isSetFlagCommentRequired($order)) {
                 $comment = trim($this->getRequest()->getPost('comment'));
                 if ($helper->setFlag($order, $comment)) {
                     $this->_getSession()->addSuccess($this->__('Marked order as fraud'));
@@ -38,12 +34,8 @@ class Aoe_FraudManager_Sales_OrderController extends Mage_Adminhtml_Controller_A
     {
         $helper = $this->getHelper();
         $order = $this->initOrder();
-        if (!$helper->isRemoveFlagActionAllowed($order)) {
-            $this->_forward('noroute');
-            return;
-        }
         try {
-            if ($this->getRequest()->isPost() || !$helper->isRemoveFlagCommentRequired()) {
+            if ($this->getRequest()->isPost() || !$helper->isRemoveFlagCommentRequired($order)) {
                 $comment = trim($this->getRequest()->getPost('comment'));
                 if ($helper->removeFlag($order, $comment)) {
                     $this->_getSession()->addSuccess($this->__('Marked order as NOT fraud'));
@@ -111,24 +103,19 @@ class Aoe_FraudManager_Sales_OrderController extends Mage_Adminhtml_Controller_A
      */
     protected function _isAllowed()
     {
-        $helper = $this->getHelper();
-
-        if (!$helper->isActive()) {
-            return false;
-        }
+        $order = $this->initOrder();
+        $allowed = false;
 
         $action = lcfirst($this->getRequest()->getActionName());
         switch ($action) {
             case 'setFraudFlag':
-                $aclResource = 'sales/order/actions/set_fraud_flag';
+                $allowed = $this->getHelper()->isSetFlagActionAllowed($order);
                 break;
             case 'removeFraudFlag':
-                $aclResource = 'sales/order/actions/remove_fraud_flag';
+                $allowed = $this->getHelper()->isRemoveFlagActionAllowed($order);
                 break;
-            default:
-                return false;
         }
 
-        return $helper->getAdminSession()->isAllowed($aclResource);
+        return $allowed;
     }
 }

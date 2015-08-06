@@ -2,19 +2,41 @@
 
 class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
 {
-    public function isActive()
+    const XML_PATH_ACTIVE = 'aoe_fraudmanager/fraud_flag/active';
+    const XML_PATH_COMMENT_REQUIRED = 'aoe_fraudmanager/fraud_flag/comment_required';
+    const ACL_PREFIX = 'sales/order/actions/';
+
+    public function isActive($store = null)
     {
-        return Mage::getStoreConfigFlag('aoe_fraudmanager/fraud_flag/active', Mage_Core_Model_Store::ADMIN_CODE);
+        return Mage::getStoreConfigFlag(self::XML_PATH_ACTIVE, $store);
     }
 
-    public function isSetFlagCommentRequired()
+    public function isSetFlagCommentRequired($order = null)
     {
-        return Mage::getStoreConfigFlag('aoe_fraudmanager/fraud_flag/comment_required', Mage_Core_Model_Store::ADMIN_CODE);
+        $order = $this->resolveOrder($order);
+        if (!$order instanceof Mage_Sales_Model_Order || $order->isObjectNew()) {
+            return false;
+        }
+
+        if (!$this->isActive($order->getStoreId())) {
+            return false;
+        }
+
+        return Mage::getStoreConfigFlag(self::XML_PATH_COMMENT_REQUIRED, $order->getStoreId());
     }
 
-    public function isRemoveFlagCommentRequired()
+    public function isRemoveFlagCommentRequired($order = null)
     {
-        return Mage::getStoreConfigFlag('aoe_fraudmanager/fraud_flag/comment_required', Mage_Core_Model_Store::ADMIN_CODE);
+        $order = $this->resolveOrder($order);
+        if (!$order instanceof Mage_Sales_Model_Order || $order->isObjectNew()) {
+            return false;
+        }
+
+        if (!$this->isActive($order->getStoreId())) {
+            return false;
+        }
+
+        return Mage::getStoreConfigFlag(self::XML_PATH_COMMENT_REQUIRED, $order->getStoreId());
     }
 
     public function isFlagged($order = null)
@@ -30,13 +52,12 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
 
     public function isSetFlagActionAllowed($order = null)
     {
-        if (!$this->isActive()) {
+        $order = $this->resolveOrder($order);
+        if (!$order instanceof Mage_Sales_Model_Order || $order->isObjectNew()) {
             return false;
         }
 
-        $order = $this->resolveOrder($order);
-
-        if (!$order instanceof Mage_Sales_Model_Order || $order->isObjectNew()) {
+        if (!$this->isActive($order->getStoreId())) {
             return false;
         }
 
@@ -44,18 +65,17 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
             return false;
         }
 
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/set_fraud_flag');
+        return $this->getAdminSession()->isAllowed(self::ACL_PREFIX . 'set_fraud_flag');
     }
 
     public function isRemoveFlagActionAllowed($order = null)
     {
-        if (!$this->isActive()) {
+        $order = $this->resolveOrder($order);
+        if (!$order instanceof Mage_Sales_Model_Order || $order->isObjectNew()) {
             return false;
         }
 
-        $order = $this->resolveOrder($order);
-
-        if (!$order instanceof Mage_Sales_Model_Order || $order->isObjectNew()) {
+        if (!$this->isActive($order->getStoreId())) {
             return false;
         }
 
@@ -63,7 +83,7 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
             return false;
         }
 
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/remove_fraud_flag');
+        return $this->getAdminSession()->isAllowed(self::ACL_PREFIX . 'remove_fraud_flag');
     }
 
     public function getSetFlagUrl($order = null)
