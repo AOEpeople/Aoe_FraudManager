@@ -10,7 +10,7 @@
     "license": "OSL-3.0",
     "type": "magento-module",
     "require": {
-        "php": ">= 5.3",
+        "php": ">=5.4",
         "magento-hackathon/magento-composer-installer": "*",
         "aoepeople/aoe_layout": ">=2.1.1"
     },
