@@ -85,7 +85,7 @@ class Aoe_FraudManager_Model_Observer
 
                 $message = $rule->getMessage();
                 if (empty($message)) {
-                    $message = trim(Mage::getStoreConfig('checkout/fraud/error_message', $order->getStoreId()));
+                    $message = $helper->getDefaultMessage($order->getStoreId());
                 }
 
                 $messages[] = $helper->__($message);

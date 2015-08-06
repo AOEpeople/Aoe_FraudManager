@@ -82,6 +82,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </notification_email_receiver>
+                        <default_message>
+                            <label>Default Message</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_message>
                     </fields>
                 </blacklist_rules>
                 <hold_rules translate="label">

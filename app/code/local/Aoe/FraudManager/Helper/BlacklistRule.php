@@ -3,6 +3,7 @@
 class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_AbstractRule
 {
     const XML_PATH_ACTIVE = 'aoe_fraudmanager/blacklist_rules/active';
+    const XML_PATH_DEFAULT_MESSAGE = 'aoe_fraudmanager/blacklist_rules/default_message';
     const XML_PATH_NOTIFICATION_EMAIL_TEMPLATE = 'aoe_fraudmanager/blacklist_rules/notification_email_template';
     const XML_PATH_NOTIFICATION_EMAIL_SENDER = 'aoe_fraudmanager/blacklist_rules/notification_email_sender';
     const XML_PATH_NOTIFICATION_EMAIL_RECEIVER = 'aoe_fraudmanager/blacklist_rules/notification_email_receiver';
@@ -11,6 +12,11 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
     public function isActive($store = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ACTIVE, $store);
+    }
+
+    public function getDefaultMessage($store = null)
+    {
+        return trim(Mage::getStoreConfig(self::XML_PATH_DEFAULT_MESSAGE, $store));
     }
 
     /**

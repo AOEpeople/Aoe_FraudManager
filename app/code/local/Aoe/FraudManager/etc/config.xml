@@ -114,4 +114,11 @@
             </sales_model_service_quote_submit_success>
         </events>
     </frontend>
+    <default>
+        <aoe_fraudmanager>
+            <blacklist_rules>
+                <default_message>An error occurred while placing your order.</default_message>
+            </blacklist_rules>
+        </aoe_fraudmanager>
+    </default>
 </config>
