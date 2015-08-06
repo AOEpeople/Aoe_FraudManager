@@ -55,6 +55,9 @@ git clone https://github.com/AOEpeople/MageTestStand.git "${TESTSTAND}"
 # Add testing framework to PATH
 PATH="${TESTSTAND}/tools:${TESTSTAND}/bin:${PATH}"
 
+# Update n98-magerun
+n98-magerun.phar self-update
+
 # Add the artifact repository to the testing framework
 echo "Add the artifact repository to the testing framework"
 jq ".repositories |= .+ [{type:\"artifact\", url:\"${BUILDENV}/artifacts\"}]" "${TESTSTAND}/composer.json" > "${TESTSTAND}/composer.json.new"
