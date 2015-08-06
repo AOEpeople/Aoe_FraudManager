@@ -88,7 +88,7 @@ class Aoe_FraudManager_Model_Observer
                     $message = $helper->getDefaultMessage($order->getStoreId());
                 }
 
-                $messages[] = $helper->__($message);
+                $messages[] = $helper->__($helper->filterMessage($message, $order->getStoreId()));
 
                 if ($rule->getStopProcessing()) {
                     break;

@@ -7,6 +7,7 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
     const XML_PATH_NOTIFICATION_EMAIL_TEMPLATE = 'aoe_fraudmanager/blacklist_rules/notification_email_template';
     const XML_PATH_NOTIFICATION_EMAIL_SENDER = 'aoe_fraudmanager/blacklist_rules/notification_email_sender';
     const XML_PATH_NOTIFICATION_EMAIL_RECEIVER = 'aoe_fraudmanager/blacklist_rules/notification_email_receiver';
+    const XML_PATH_FILTER_MODEL = 'aoe_fraudmanager/blacklist_rules/filter_model';
     const ACL_PREFIX = 'system/aoe_fraudmanager/blacklist_rule/';
 
     public function isActive($store = null)
@@ -17,6 +18,22 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
     public function getDefaultMessage($store = null)
     {
         return trim(Mage::getStoreConfig(self::XML_PATH_DEFAULT_MESSAGE, $store));
+    }
+
+    public function filterMessage($message, $store = null)
+    {
+        $store = Mage::app()->getStore($store);
+
+        /** @var Varien_Filter_Template $filter */
+        $filter = Mage::getModel(Mage::getStoreConfig(self::XML_PATH_FILTER_MODEL, $store));
+        if (!$filter instanceof Varien_Filter_Template) {
+            $filter = Mage::getModel('core/email_template_filter');
+        }
+        if (method_exists($filter, 'setStoreId')) {
+            $filter->setStoreId($store->getId());
+        }
+
+        return $filter->filter($message);
     }
 
     /**
