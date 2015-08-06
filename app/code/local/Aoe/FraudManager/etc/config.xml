@@ -121,4 +121,11 @@
             </blacklist_rules>
         </aoe_fraudmanager>
     </default>
+    <phpunit>
+        <suite>
+            <modules>
+                <Aoe_FraudManager/>
+            </modules>
+        </suite>
+    </phpunit>
 </config>
