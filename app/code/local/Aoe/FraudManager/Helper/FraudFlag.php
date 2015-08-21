@@ -4,6 +4,7 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
 {
     const XML_PATH_ACTIVE = 'aoe_fraudmanager/fraud_flag/active';
     const XML_PATH_COMMENT_REQUIRED = 'aoe_fraudmanager/fraud_flag/comment_required';
+    const XML_PATH_AUTO_HOLD_STATUS = 'aoe_fraudmanager/fraud_flag/auto_hold_status';
     const ACL_PREFIX = 'sales/order/actions/';
 
     public function isActive($store = null)
@@ -37,6 +38,11 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
         }
 
         return Mage::getStoreConfigFlag(self::XML_PATH_COMMENT_REQUIRED, $order->getStoreId());
+    }
+
+    public function getAutoHoldStatus($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_AUTO_HOLD_STATUS, $store);
     }
 
     public function isFlagged($order = null)
@@ -114,7 +120,15 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
 
         if ($order instanceof Mage_Sales_Model_Order && $order->getId() && !$order->getIsFraud()) {
             $order->setIsFraud(1);
-            $order->addStatusHistoryComment(trim($this->__('Marked order as fraud') . "\n\n" . $message));
+            $comment = trim($this->__('Marked order as fraud') . "\n\n" . $message);
+            $holdStatus = $this->getAutoHoldStatus($order->getStore());
+            if ($holdStatus && $order->canHold()) {
+                $order->setHoldBeforeState($order->getState());
+                $order->setHoldBeforeStatus($order->getStatus());
+                $order->setState(Mage_Sales_Model_Order::STATE_HOLDED, $holdStatus, $comment);
+            } else {
+                $order->addStatusHistoryComment($comment);
+            }
             $order->save();
 
             return true;
@@ -129,7 +143,15 @@ class Aoe_FraudManager_Helper_FraudFlag extends Aoe_FraudManager_Helper_Data
 
         if ($order instanceof Mage_Sales_Model_Order && $order->getId() && $order->getIsFraud()) {
             $order->setIsFraud(0);
-            $order->addStatusHistoryComment(trim($this->__('Marked order as NOT fraud') . "\n\n" . $message));
+            $comment = trim($this->__('Marked order as NOT fraud') . "\n\n" . $message);
+            $holdStatus = $this->getAutoHoldStatus($order->getStore());
+            if ($holdStatus && $order->canUnhold() && $order->getStatus() === $holdStatus) {
+                $order->setState($order->getHoldBeforeState(), $order->getHoldBeforeStatus(), $comment);
+                $order->setHoldBeforeState(null);
+                $order->setHoldBeforeStatus(null);
+            } else {
+                $order->addStatusHistoryComment($comment);
+            }
             $order->save();
 
             return true;
