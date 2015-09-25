@@ -92,6 +92,14 @@
                     </Aoe_FraudManager>
                 </observers>
             </aoe_fraudmanager_rule_condition_combine_additional>
+            <aoe_fraudmanager_rule_condition_order_item_combine_conditions>
+                <observers>
+                    <Aoe_FraudManager>
+                        <class>Aoe_FraudManager/Observer</class>
+                        <method>addOrderItemConditions</method>
+                    </Aoe_FraudManager>
+                </observers>
+            </aoe_fraudmanager_rule_condition_order_item_combine_conditions>
         </events>
     </adminhtml>
     <frontend>

@@ -52,7 +52,47 @@ class Aoe_FraudManager_Model_Observer
             $conditions[$conditionName][$condition->getType() . '|' . $attribute] = $label;
         }
 
+        /** @var Aoe_FraudManager_Model_Rule_Condition_Order_Item_Found $condition */
+        $condition = Mage::getModel('Aoe_FraudManager/Rule_Condition_Order_Item_Found');
+        $conditions[$condition->getType()] = $helper->__($condition->getName());
+
         $container->setConditions($conditions);
+    }
+
+    public function addOrderItemConditions(Varien_Event_Observer $observer)
+    {
+        /** @var Aoe_FraudManager_Helper_Data $helper */
+        $helper = Mage::helper('Aoe_FraudManager/Data');
+
+        /** @var Aoe_FraudManager_Model_Rule_Condition_Interface $parent */
+        $parent = $observer->getData('parent');
+        if (!$parent instanceof Aoe_FraudManager_Model_Rule_Condition_Interface) {
+            return;
+        }
+
+        /** @var Varien_Object $container */
+        $container = $observer->getData('container');
+        if (!$container instanceof Varien_Object) {
+            return;
+        }
+
+        $conditions = $container->getData('conditions');
+        if (!is_array($conditions)) {
+            $conditions = [];
+        }
+
+        /** @var Aoe_FraudManager_Model_Rule_Condition_Order_Item_Combine $condition */
+        $condition = Mage::getModel('Aoe_FraudManager/Rule_Condition_Order_Item_Combine');
+        $conditions[$condition->getType()] = $helper->__($condition->getName());
+
+        /** @var Aoe_FraudManager_Model_Rule_Condition_Order_Item_Attribute $condition */
+        $condition = Mage::getModel('Aoe_FraudManager/Rule_Condition_Order_Item_Attribute');
+        $conditionName = $helper->__($condition->getName());
+        foreach ($condition->getAttributeOptions() as $attribute => $label) {
+            $conditions[$conditionName][$condition->getType() . '|' . $attribute] = $label;
+        }
+
+        $container->setData('conditions', $conditions);
     }
 
     public function checkQuoteSubmitBefore(Varien_Event_Observer $observer)
