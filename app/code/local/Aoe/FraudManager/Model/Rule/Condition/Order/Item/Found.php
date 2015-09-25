@@ -21,10 +21,10 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Item_Found extends Aoe_FraudMa
      */
     public function getValueOptions()
     {
-        return array(
+        return [
             1 => Mage::helper('salesrule')->__('FOUND'),
             0 => Mage::helper('salesrule')->__('NOT FOUND'),
-        );
+        ];
     }
 
     public function getConditionConfigHtml()
