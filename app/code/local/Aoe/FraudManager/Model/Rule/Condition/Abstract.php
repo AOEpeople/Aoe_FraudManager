@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @method $this setType(string $type)
+ * @method $this setName(string $name)
+ */
 abstract class Aoe_FraudManager_Model_Rule_Condition_Abstract extends Varien_Object implements Aoe_FraudManager_Model_Rule_Condition_Interface
 {
     /**
