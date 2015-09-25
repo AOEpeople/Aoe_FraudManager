@@ -8,7 +8,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
     protected function _construct()
     {
         $this->setType('Aoe_FraudManager/Rule_Condition_Combine');
-        $this->setName($this->translate('Conditions Combination'));
+        $this->setName('Conditions Combination');
         $this->arrayKeys[] = 'aggregator';
         $this->arrayKeys[] = 'value';
     }
@@ -264,7 +264,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Combine extends Aoe_FraudManager_Mod
         $conditions = ['' => $this->translate('Please choose a condition to add...')];
 
         // Add self reference for recursive combinations
-        $conditions[$this->getSelfType()] = $this->getName();
+        $conditions[$this->getSelfType()] = $this->translate($this->getName());
 
         // Fire an event to add additional conditions
         $container = new Varien_Object();
