@@ -4,6 +4,7 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Item_Attribute extends Aoe_Fra
 {
     protected $attributes = [
         'sku' => ['SKU', ['==', '!=', '{}', '!{}', 'RE']],
+        'original_price' => ['Original Price', ['==', '!=', '{}', '!{}', 'RE']],
     ];
 
     protected function _construct()
