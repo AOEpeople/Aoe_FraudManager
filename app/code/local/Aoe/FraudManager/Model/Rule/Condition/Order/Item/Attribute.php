@@ -4,7 +4,17 @@ class Aoe_FraudManager_Model_Rule_Condition_Order_Item_Attribute extends Aoe_Fra
 {
     protected $attributes = [
         'sku' => ['SKU', ['==', '!=', '{}', '!{}', 'RE']],
-        'original_price' => ['Original Price', ['==', '!=', '{}', '!{}', 'RE']],
+        'qty_ordered' => ['Qty', ['==', '!=', '<', '<=', '>', '>=']],
+        'weight' => ['Weight', ['==', '!=', '<', '<=', '>', '>=']],
+        'row_weight' => ['Row Weight', ['==', '!=', '<', '<=', '>', '>=']],
+        'price' => ['Price', ['==', '!=', '<', '<=', '>', '>=']],
+        'original_price' => ['Original Price', ['==', '!=', '<', '<=', '>', '>=']],
+        'tax_percent' => ['Tax Percent', ['==', '!=', '<', '<=', '>', '>=']],
+        'tax_amount' => ['Tax Amount', ['==', '!=', '<', '<=', '>', '>=']],
+        'discount_percent' => ['Discount Percent', ['==', '!=', '<', '<=', '>', '>=']],
+        'discount_amount' => ['Discount Amount', ['==', '!=', '<', '<=', '>', '>=']],
+        'row_total' => ['Row Total', ['==', '!=', '<', '<=', '>', '>=']],
+        'row_total_incl_tax' => ['Row Total w/Tax', ['==', '!=', '<', '<=', '>', '>=']],
     ];
 
     protected function _construct()
