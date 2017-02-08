@@ -99,22 +99,17 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
                 $invertResult = true;
             // Fall-through
             case '{}':
-                if (is_array($expectedValue)) {
-                    if (is_array($actualValue)) {
-                        $result = array_intersect($expectedValue, $actualValue);
-                        $result = !empty($result);
-                    } elseif (is_scalar($actualValue)) {
-                        foreach ($expectedValue as $item) {
-                            if (stripos($actualValue, $item) !== false) {
-                                $result = true;
-                                break;
-                            }
+                // We don't support non-scalar values for the expected value on a 'contains' comparison
+                if (!is_scalar($expectedValue)) {
+                    return false;
+                }
+                if (is_array($actualValue)) {
+                    foreach($actualValue as $currentActualValue) {
+                        if($this->compareValues($expectedValue, $currentActualValue, false)) {
+                            $result = true;
+                            break;
                         }
-                    } else {
-                        return false;
                     }
-                } elseif (is_array($actualValue)) {
-                    $result = in_array($expectedValue, $actualValue);
                 } else {
                     $result = $this->compareValues($expectedValue, $actualValue, false);
                 }
@@ -136,6 +131,7 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
                     }
                 }
                 break;
+
             case 'RE':
                 $result = preg_match($expectedValue, $actualValue);
                 if ($result === false) {
