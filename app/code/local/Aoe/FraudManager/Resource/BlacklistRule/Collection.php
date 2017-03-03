@@ -7,9 +7,11 @@ class Aoe_FraudManager_Resource_BlacklistRule_Collection extends Aoe_FraudManage
         $this->_init('Aoe_FraudManager/BlacklistRule');
     }
 
-    public function filterValidForOrder(Mage_Sales_Model_Order $order)
+    public function filterValidForOrder(Mage_Sales_Model_Order $order, $includeInactive = false)
     {
-        $this->addFieldToFilter('is_active', '1');
+        if(!$includeInactive) {
+            $this->addFieldToFilter('is_active', '1');
+        }
         $this->addFieldToFilter('website_ids', ['finset' => $order->getStore()->getWebsiteId()]);
         $this->addOrder('sort_order', 'DESC');
 

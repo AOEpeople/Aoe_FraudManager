@@ -196,6 +196,122 @@
         </reference>
     </adminhtml_fraudmanager_blacklistrule_edit>
 
+    <adminhtml_fraudmanager_blacklistrule_testorder>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Grid_Container" name="aoe.fraudmanager.blacklistrule.testorder">
+                <action method="setHeaderText" translate="text">
+                    <text>
+                        <source>Testing Order #%s Against All Blacklist Rules</source>
+                        <increment_id helper="Aoe_FraudManager/BlacklistRule/getObjectData">
+                            <order helper="Aoe_FraudManager/BlacklistRule/getCurrentOrder"/>
+                            <key>increment_id</key>
+                        </increment_id>
+                    </text>
+                </action>
+                <action method="removeButton">
+                    <id>add</id>
+                </action>
+                <action method="addButton" translate="data.label data.onclick">
+                    <id>back</id>
+                    <data>
+                        <label>Back</label>
+                        <onclick>
+                            <text>setLocation('%s')</text>
+                            <url helper="Aoe_FraudManager/BlacklistRule/getOrderViewUrl"/>
+                        </onclick>
+                        <class>back</class>
+                    </data>
+                </action>
+                <block type="Aoe_Layout/Widget_Grid" name="aoe.fraudmanager.blacklistrule.testorder.grid" as="grid">
+                    <action method="setId">
+                        <id>aoe_fraudmanager_blacklistrule_testorder_grid</id>
+                    </action>
+                    <action method="setUseAjax">
+                        <flag>0</flag>
+                    </action>
+                    <action method="setCollection">
+                        <collection helper="Aoe_FraudManager/BlacklistRule/testOrder">
+                            <order helper="Aoe_FraudManager/BlacklistRule/getCurrentOrder"/>
+                        </collection>
+                    </action>
+                    <action method="setPagerVisibility">
+                        <flag>0</flag>
+                    </action>
+                    <action method="setFilterVisibility">
+                        <flag>0</flag>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>id</id>
+                        <column>
+                            <index>id</index>
+                            <type>number</type>
+                            <header>ID</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>name</id>
+                        <column>
+                            <header>Name</header>
+                            <index>name</index>
+                            <type>text</type>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>is_active</id>
+                        <column>
+                            <index>is_active</index>
+                            <header>Active</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>triggered</id>
+                        <column>
+                            <index>triggered</index>
+                            <header>Triggered</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>timing</id>
+                        <column>
+                            <index>timing</index>
+                            <type>number</type>
+                            <header>Timing (ms)</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>message</id>
+                        <column>
+                            <index>message</index>
+                            <type>text</type>
+                            <header>Message</header>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="setRowUrlRoute">
+                        <route helper="Aoe_FraudManager/BlacklistRule/getEditRoute"/>
+                    </action>
+                    <action method="setRowUrlParams">
+                        <params>
+                            <id>{{id}}</id>
+                        </params>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_fraudmanager_blacklistrule_testorder>
+
     <adminhtml_fraudmanager_holdrule_index>
         <update handle="adminhtml_aoe_fraudmanager"/>
         <reference name="content">
@@ -370,6 +486,135 @@
         </reference>
     </adminhtml_fraudmanager_holdrule_edit>
 
+    <adminhtml_fraudmanager_holdrule_testorder>
+        <reference name="content">
+            <block type="Aoe_Layout/Widget_Grid_Container" name="aoe.fraudmanager.holdrule.testorder">
+                <action method="setHeaderText" translate="text">
+                    <text>
+                        <source>Testing Order #%s Against All Hold Rules</source>
+                        <increment_id helper="Aoe_FraudManager/HoldRule/getObjectData">
+                            <order helper="Aoe_FraudManager/HoldRule/getCurrentOrder"/>
+                            <key>increment_id</key>
+                        </increment_id>
+                    </text>
+                </action>
+                <action method="removeButton">
+                    <id>add</id>
+                </action>
+                <action method="addButton" translate="data.label data.onclick">
+                    <id>back</id>
+                    <data>
+                        <label>Back</label>
+                        <onclick>
+                            <text>setLocation('%s')</text>
+                            <url helper="Aoe_FraudManager/HoldRule/getOrderViewUrl"/>
+                        </onclick>
+                        <class>back</class>
+                    </data>
+                </action>
+                <block type="Aoe_Layout/Widget_Grid" name="aoe.fraudmanager.holdrule.testorder.grid" as="grid">
+                    <action method="setId">
+                        <id>aoe_fraudmanager_holdrule_testorder_grid</id>
+                    </action>
+                    <action method="setUseAjax">
+                        <flag>0</flag>
+                    </action>
+                    <action method="setCollection">
+                        <collection helper="Aoe_FraudManager/HoldRule/testOrder">
+                            <order helper="Aoe_FraudManager/HoldRule/getCurrentOrder"/>
+                        </collection>
+                    </action>
+                    <action method="setPagerVisibility">
+                        <flag>0</flag>
+                    </action>
+                    <action method="setFilterVisibility">
+                        <flag>0</flag>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>id</id>
+                        <column>
+                            <index>id</index>
+                            <type>number</type>
+                            <header>ID</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>name</id>
+                        <column>
+                            <header>Name</header>
+                            <index>name</index>
+                            <type>text</type>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>is_active</id>
+                        <column>
+                            <index>is_active</index>
+                            <header>Active</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>triggered</id>
+                        <column>
+                            <index>triggered</index>
+                            <header>Triggered</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>skipped</id>
+                        <column>
+                            <index>skipped</index>
+                            <header>Skipped</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_yesno</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>timing</id>
+                        <column>
+                            <index>timing</index>
+                            <type>number</type>
+                            <header>Timing (ms)</header>
+                            <width>50px</width>
+                            <align>right</align>
+                        </column>
+                    </action>
+                    <action method="addColumn" translate="column.header">
+                        <id>status</id>
+                        <column>
+                            <index>status</index>
+                            <header>Status</header>
+                            <type>options</type>
+                            <options helper="Aoe_Layout/Data/getSourceModelHash">
+                                <model>adminhtml/system_config_source_order_status</model>
+                            </options>
+                        </column>
+                    </action>
+                    <action method="setRowUrlRoute">
+                        <route helper="Aoe_FraudManager/HoldRule/getEditRoute"/>
+                    </action>
+                    <action method="setRowUrlParams">
+                        <params>
+                            <id>{{id}}</id>
+                        </params>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_fraudmanager_holdrule_testorder>
+
     <adminhtml_sales_order_index>
         <update handle="adminhtml_sales_order_grid_fraud"/>
     </adminhtml_sales_order_index>
@@ -402,7 +647,7 @@
                 <template>aoe_fraudmanager/sales/order/view/info.phtml</template>
             </action>
         </reference>
-        <reference name="sales_order_edit" ifhelper="Aoe_FraudManager/FraudFlag/isActive">
+        <reference name="sales_order_edit">
             <action method="addButton" translate="data.label data.onclick" ifhelper="Aoe_FraudManager/FraudFlag/isSetFlagActionAllowed">
                 <id>set_fraud_flag</id>
                 <data>
@@ -422,6 +667,30 @@
                         <url helper="Aoe_FraudManager/FraudFlag/getRemoveFlagUrl"/>
                     </onclick>
                 </data>
+            </action>
+            <action method="addButton" translate="data.label data.onclick" ifhelper="Aoe_FraudManager/BlacklistRule/canTest">
+                <id>test_blacklist_rules</id>
+                <data>
+                    <label>Test Blacklist Rules</label>
+                    <onclick>
+                        <text>setLocation('%s')</text>
+                        <url helper="Aoe_FraudManager/BlacklistRule/getTestOrderUrl"/>
+                    </onclick>
+                    <class>go</class>
+                </data>
+                <level>10</level>
+            </action>
+            <action method="addButton" translate="data.label data.onclick" ifhelper="Aoe_FraudManager/HoldRule/canTest">
+                <id>test_hold_rules</id>
+                <data>
+                    <label>Test Hold Rules</label>
+                    <onclick>
+                        <text>setLocation('%s')</text>
+                        <url helper="Aoe_FraudManager/HoldRule/getTestOrderUrl"/>
+                    </onclick>
+                    <class>go</class>
+                </data>
+                <level>10</level>
             </action>
         </reference>
     </adminhtml_sales_order_view>

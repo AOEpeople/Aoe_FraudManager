@@ -202,4 +202,83 @@ abstract class Aoe_FraudManager_Helper_AbstractRule extends Aoe_Layout_Helper_Ab
 
         return $result;
     }
+
+    public function getTestOrderUrl($order = null)
+    {
+        $order = $this->resolveOrder($order);
+
+        if ($order instanceof Mage_Sales_Model_Order && $order->getId()) {
+            return $this->getUrl($this->getControllerRoute() . '/testOrder', ['order_id' => $order->getId()]);
+        }
+
+        return false;
+    }
+
+    public function getOrderViewUrl($order = null)
+    {
+        $order = $this->resolveOrder($order);
+
+        if ($order instanceof Mage_Sales_Model_Order && $order->getId()) {
+            return $this->getUrl('*/sales_order/view', ['order_id' => $order->getId()]);
+        }
+
+        return false;
+    }
+
+    public function canTest()
+    {
+        return $this->getAclPermission('test');
+    }
+
+    /**
+     * Return the current order or an empty order
+     *
+     * @return Mage_Sales_Model_Order
+     */
+    public function getCurrentOrder()
+    {
+        $order = Mage::registry('current_order');
+        if ($order instanceof Mage_Sales_Model_Order) {
+            return $order;
+        } else {
+            Mage::getModel('sales/order');
+        }
+    }
+
+    /**
+     *
+     * @param Mage_Sales_Model_Order $order
+     *
+     * @return $this
+     */
+    public function setCurrentOrder(Mage_Sales_Model_Order $order = null)
+    {
+        Mage::unregister('sales_order');
+        Mage::unregister('current_order');
+
+        Mage::register('sales_order', $order);
+        Mage::register('current_order', $order);
+
+        return $this;
+    }
+
+    protected function resolveOrder($order = null)
+    {
+        if ($order instanceof Mage_Sales_Model_Order) {
+            return $order;
+        } elseif ($order) {
+            return Mage::getModel('sales/order')->load($order);
+        } else {
+            return $this->getCurrentOrder();
+        }
+    }
+
+    /**
+     * Test an order against all of the rules
+     *
+     * @param Mage_Sales_Model_Order $order
+     *
+     * @return Varien_Data_Collection
+     */
+    abstract public function testOrder(Mage_Sales_Model_Order $order);
 }

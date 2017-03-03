@@ -7,9 +7,11 @@ class Aoe_FraudManager_Resource_HoldRule_Collection extends Aoe_FraudManager_Res
         $this->_init('Aoe_FraudManager/HoldRule');
     }
 
-    public function filterValidForOrder(Mage_Sales_Model_Order $order)
+    public function filterValidForOrder(Mage_Sales_Model_Order $order, $includeInactive = false)
     {
-        $this->addFieldToFilter('is_active', '1');
+        if(!$includeInactive) {
+            $this->addFieldToFilter('is_active', '1');
+        }
         $this->addFieldToFilter('website_ids', ['finset' => $order->getStore()->getWebsiteId()]);
         $this->addOrder('sort_order', 'DESC');
 
