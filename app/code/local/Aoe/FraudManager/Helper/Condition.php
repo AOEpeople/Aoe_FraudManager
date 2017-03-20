@@ -104,8 +104,8 @@ class Aoe_FraudManager_Helper_Condition extends Aoe_FraudManager_Helper_Data
                     return false;
                 }
                 if (is_array($actualValue)) {
-                    foreach($actualValue as $currentActualValue) {
-                        if($this->compareValues($expectedValue, $currentActualValue, false)) {
+                    foreach ($actualValue as $currentActualValue) {
+                        if ($this->compareValues($expectedValue, $currentActualValue, false)) {
                             $result = true;
                             break;
                         }
