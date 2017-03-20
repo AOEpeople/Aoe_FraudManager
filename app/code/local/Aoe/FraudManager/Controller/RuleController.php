@@ -2,6 +2,25 @@
 
 abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Controller_ModelManager
 {
+    public function testOrderAction()
+    {
+        $id = $this->getRequest()->getParam('order', $this->getRequest()->getParam('order_id'));
+
+        /** @var Mage_Sales_Model_Order $order */
+        $order = Mage::getModel('sales/order')->load($id);
+        if ($order->isObjectNew()) {
+            $e = new Mage_Core_Controller_Varien_Exception();
+            throw $e->prepareForward('noroute');
+        }
+
+        /** @var Aoe_FraudManager_Helper_AbstractRule $helper */
+        $helper = $this->getHelper();
+        $helper->setCurrentOrder($order);
+
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
     public function conditionAction()
     {
         if (!$this->getRequest()->isAjax()) {
@@ -56,5 +75,18 @@ abstract class Aoe_FraudManager_Controller_RuleController extends Aoe_Layout_Con
         }
 
         return $postData;
+    }
+
+    protected function getAclActionName()
+    {
+        $action = Aoe_Layout_Controller_Model::getAclActionName();
+
+        if ($action === 'testOrder') {
+            $action = 'test';
+        } elseif ($action !== 'view') {
+            $action = 'edit';
+        }
+
+        return $action;
     }
 }

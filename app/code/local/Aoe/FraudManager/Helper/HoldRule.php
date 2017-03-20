@@ -84,6 +84,51 @@ class Aoe_FraudManager_Helper_HoldRule extends Aoe_FraudManager_Helper_AbstractR
         return $form;
     }
 
+    /**
+     * Test an order against all of the rules
+     *
+     * @param Mage_Sales_Model_Order $order
+     *
+     * @return Varien_Data_Collection
+     */
+    public function testOrder(Mage_Sales_Model_Order $order)
+    {
+        $collection = new Varien_Data_Collection();
+
+        /** @var Aoe_FraudManager_Resource_HoldRule_Collection $rules */
+        $rules = Mage::getSingleton('Aoe_FraudManager/HoldRule')
+            ->getCollection()
+            ->filterValidForOrder($order, true);
+
+        /** @var Mage_Sales_Model_Order_Config $salesConfig */
+        $salesConfig = Mage::getSingleton('sales/order_config');
+
+        $skip = false;
+        foreach ($rules as $rule) {
+            /** @var Aoe_FraudManager_Model_HoldRule $rule */
+
+            $timing = microtime(true);
+            $rule->setData('triggered', $rule->validate($order));
+            $timing = microtime(true) - $timing;
+
+            $rule->setData('timing', round($timing * 1000));
+
+            $status = $rule->getData('status');
+            $allowedStatuses = $salesConfig->getStateStatuses(Mage_Sales_Model_Order::STATE_HOLDED, false);
+            if (!in_array($status, $allowedStatuses)) {
+                $status = $salesConfig->getStateDefaultStatus(Mage_Sales_Model_Order::STATE_HOLDED);
+            }
+            $rule->setData('status', $status);
+
+            $rule->setData('skipped', $skip);
+
+            $collection->addItem($collection->getNewEmptyItem()->setData($rule->toArray()));
+
+            $skip = $skip || ((bool)$rule->getData('stop_processing') && $rule->getData('triggered'));
+        }
+
+        return $collection;
+    }
 
     /**
      * Email notification for hold rule activation

@@ -109,6 +109,46 @@ class Aoe_FraudManager_Helper_BlacklistRule extends Aoe_FraudManager_Helper_Abst
     }
 
     /**
+     * Test an order against all of the rules
+     *
+     * @param Mage_Sales_Model_Order $order
+     *
+     * @return Varien_Data_Collection
+     */
+    public function testOrder(Mage_Sales_Model_Order $order)
+    {
+        $collection = new Varien_Data_Collection();
+
+        /** @var Aoe_FraudManager_Helper_BlacklistRule $helper */
+        $helper = Mage::helper('Aoe_FraudManager/BlacklistRule');
+
+        /** @var Aoe_FraudManager_Resource_BlacklistRule_Collection $rules */
+        $rules = Mage::getSingleton('Aoe_FraudManager/BlacklistRule')
+            ->getCollection()
+            ->filterValidForOrder($order, true);
+
+        foreach ($rules as $rule) {
+            /** @var Aoe_FraudManager_Model_BlacklistRule $rule */
+
+            $timing = microtime(true);
+            $rule->setData('triggered', $rule->validate($order));
+            $timing = microtime(true) - $timing;
+
+            $rule->setData('timing', round($timing * 1000));
+
+            $message = $rule->getData('message');
+            if (empty($message)) {
+                $message = $helper->getDefaultMessage($order->getStoreId());
+            }
+            $rule->setData('message', $message);
+
+            $collection->addItem($collection->getNewEmptyItem()->setData($rule->toArray()));
+        }
+
+        return $collection;
+    }
+
+    /**
      * Email notification for blacklist activation
      *
      * @param string          $message
